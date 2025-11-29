@@ -45,14 +45,26 @@ class BukuModel {
      * CREATE - Tambah buku baru
      */
     public function create($data) {
+        // PERHATIAN: Pastikan tabel `buku` memiliki kolom `id_buku` sebagai PRIMARY KEY dan AUTO_INCREMENT,
+        // atau pastikan kolom PRIMARY KEY (misalnya ISBN jika Anda menggunakannya) tidak kosong.
+        // Berdasarkan error, kolom PRIMARY KEY (kemungkinan id_buku) menerima nilai kosong, 
+        // yang TIDAK BOLEH terjadi jika kolom tersebut tidak AUTO_INCREMENT.
+
         $query = "INSERT INTO " . $this->table_name . " 
                   (isbn, judul, id_penulis, id_penerbit, id_kategori, tahun_terbit, sinopsis, jumlah, foto_sampul) 
                   VALUES (:isbn, :judul, :id_penulis, :id_penerbit, :id_kategori, :tahun_terbit, :sinopsis, :jumlah, :foto_sampul)";
         
         $stmt = $this->conn->prepare($query);
         
-        $stmt->bindParam(':isbn', htmlspecialchars(strip_tags($data['isbn'])));
-        $stmt->bindParam(':judul', htmlspecialchars(strip_tags($data['judul'])));
+        // Perbaikan 1: Mengatasi Notice (Baris 54 & 55)
+        // Hasil dari fungsi `htmlspecialchars(strip_tags(...))` harus disimpan dalam variabel 
+        // sebelum dipass ke `bindParam`, karena fungsi tersebut mengembalikan nilai.
+        
+        $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn'])); // Line 54 (sebelumnya)
+        $judul_sanitized = htmlspecialchars(strip_tags($data['judul'])); // Line 55 (sebelumnya)
+        
+        $stmt->bindParam(':isbn', $isbn_sanitized);
+        $stmt->bindParam(':judul', $judul_sanitized);
         $stmt->bindParam(':id_penulis', $data['id_penulis']);
         $stmt->bindParam(':id_penerbit', $data['id_penerbit']);
         $stmt->bindParam(':id_kategori', $data['id_kategori']);
@@ -61,7 +73,19 @@ class BukuModel {
         $stmt->bindParam(':jumlah', $data['jumlah']);
         $stmt->bindParam(':foto_sampul', $data['foto_sampul']);
         
-        if ($stmt->execute()) {
+        // Perbaikan 2: Mengatasi Fatal Error (Line 64) - Meskipun penyebab utama ada di DB, 
+        // perbaikan Notice di atas adalah langkah pertama.
+
+        // Jika Anda TIDAK menggunakan AUTO_INCREMENT untuk id_buku, dan Anda ingin mengisi 
+        // id_buku saat INSERT, maka query INSERT harus menyertakan `id_buku`:
+        /*
+        $query = "INSERT INTO " . $this->table_name . " 
+                  (id_buku, isbn, judul, id_penulis, id_penerbit, id_kategori, tahun_terbit, sinopsis, jumlah, foto_sampul) 
+                  VALUES (:id_buku, :isbn, :judul, :id_penulis, :id_penerbit, :id_kategori, :tahun_terbit, :sinopsis, :jumlah, :foto_sampul)";
+        $stmt->bindParam(':id_buku', $data['id_buku']); // Anda harus menyediakan id_buku di $data
+        */
+        
+        if ($stmt->execute()) { // Line 64 (tempat Fatal Error terjadi)
             return true;
         }
         return false;
@@ -80,14 +104,19 @@ class BukuModel {
                   tahun_terbit = :tahun_terbit, 
                   sinopsis = :sinopsis, 
                   jumlah = :jumlah" .
+                  // Penting: Pastikan tidak ada spasi ekstra setelah 'jumlah = :jumlah' jika foto_sampul kosong
                   (!empty($data['foto_sampul']) ? ", foto_sampul = :foto_sampul" : "") .
                   " WHERE id_buku = :id_buku";
         
         $stmt = $this->conn->prepare($query);
         
+        // Perbaikan Notice/Reference
+        $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn']));
+        $judul_sanitized = htmlspecialchars(strip_tags($data['judul']));
+        
         $stmt->bindParam(':id_buku', $id_buku);
-        $stmt->bindParam(':isbn', htmlspecialchars(strip_tags($data['isbn'])));
-        $stmt->bindParam(':judul', htmlspecialchars(strip_tags($data['judul'])));
+        $stmt->bindParam(':isbn', $isbn_sanitized);
+        $stmt->bindParam(':judul', $judul_sanitized);
         $stmt->bindParam(':id_penulis', $data['id_penulis']);
         $stmt->bindParam(':id_penerbit', $data['id_penerbit']);
         $stmt->bindParam(':id_kategori', $data['id_kategori']);

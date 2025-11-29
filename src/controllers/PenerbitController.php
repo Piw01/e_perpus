@@ -1,12 +1,34 @@
 <?php
+// src/controllers/PenerbitController.php
+
+// Pastikan file-file yang dibutuhkan di-load
+require_once ROOT_PATH . 'src/models/PenerbitModel.php';
+require_once ROOT_PATH . 'src/config/Database.php';
 
 class PenerbitController {
     private $penerbitModel;
 
     public function __construct() {
+        // Mulai session jika belum dimulai (PENTING untuk pesan flash dan level)
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         $database = new Database();
         $db = $database->getConnection();
         $this->penerbitModel = new PenerbitModel($db);
+    }
+    
+    /**
+     * Helper untuk membatasi akses CUD
+     */
+    private function checkAccess() {
+        // Hanya izinkan Level < 3 (misal: Admin/Super Admin)
+        if (!isset($_SESSION['level']) || $_SESSION['level'] == 3) {
+            $_SESSION['error_message'] = "Akses ditolak! Anda tidak memiliki izin untuk melakukan aksi ini.";
+            header("Location: index.php?page=penerbit/index");
+            exit();
+        }
     }
 
     public function index() {
@@ -16,10 +38,13 @@ class PenerbitController {
     }
 
     public function create() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
         require_once ROOT_PATH . 'src/views/penerbit/create.php';
     }
 
     public function store() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nama_penerbit = trim($_POST['nama_penerbit']);
             $kota = trim($_POST['kota']);
@@ -40,7 +65,7 @@ class PenerbitController {
                 header("Location: index.php?page=penerbit/index");
                 exit();
             } else {
-                $_SESSION['error_message'] = "Gagal menambahkan penerbit!";
+                $_SESSION['error_message'] = "Gagal menyimpan penerbit!";
                 header("Location: index.php?page=penerbit/create");
                 exit();
             }
@@ -48,13 +73,12 @@ class PenerbitController {
     }
 
     public function edit() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        
         $id_penerbit = $_GET['id'] ?? null;
-        if (!$id_penerbit) {
-            header("Location: index.php?page=penerbit/index");
-            exit();
-        }
-        $data_penerbit = $this->penerbitModel->readById($id_penerbit);
-        if (!$data_penerbit) {
+        $penerbit = $this->penerbitModel->readById($id_penerbit);
+
+        if (!$penerbit) {
             $_SESSION['error_message'] = "Penerbit tidak ditemukan!";
             header("Location: index.php?page=penerbit/index");
             exit();
@@ -63,6 +87,8 @@ class PenerbitController {
     }
 
     public function update() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_penerbit = (int)$_POST['id_penerbit'];
             $nama_penerbit = trim($_POST['nama_penerbit']);
@@ -85,6 +111,8 @@ class PenerbitController {
     }
 
     public function delete() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        
         $id_penerbit = $_GET['id'] ?? null;
         if (!$id_penerbit) {
             header("Location: index.php?page=penerbit/index");
@@ -93,11 +121,12 @@ class PenerbitController {
 
         if ($this->penerbitModel->delete($id_penerbit)) {
             $_SESSION['success_message'] = "Penerbit berhasil dihapus!";
+            header("Location: index.php?page=penerbit/index");
+            exit();
         } else {
-            $_SESSION['error_message'] = "Gagal menghapus penerbit!";
+            $_SESSION['error_message'] = "Gagal menghapus penerbit. Mungkin data ini digunakan di tabel lain.";
+            header("Location: index.php?page=penerbit/index");
+            exit();
         }
-        header("Location: index.php?page=penerbit/index");
-        exit();
     }
 }
-?>

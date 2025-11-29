@@ -1,13 +1,34 @@
 <?php
 // src/controllers/KategoriController.php
 
+// Pastikan file-file yang dibutuhkan di-load
+require_once ROOT_PATH . 'src/models/KategoriModel.php';
+require_once ROOT_PATH . 'src/config/Database.php';
+
 class KategoriController {
     private $kategoriModel;
 
     public function __construct() {
+        // Mulai session jika belum dimulai (PENTING untuk pesan flash dan level)
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         $database = new Database();
         $db = $database->getConnection();
         $this->kategoriModel = new KategoriModel($db);
+    }
+    
+    /**
+     * Helper untuk membatasi akses CUD
+     */
+    private function checkAccess() {
+        // Hanya izinkan Level < 3 (misal: Admin/Super Admin)
+        if (!isset($_SESSION['level']) || $_SESSION['level'] == 3) {
+            $_SESSION['error_message'] = "Akses ditolak! Anda tidak memiliki izin untuk melakukan aksi ini.";
+            header("Location: index.php?page=kategori/index");
+            exit();
+        }
     }
 
     /**
@@ -24,6 +45,7 @@ class KategoriController {
      * CREATE - Tampilkan form tambah kategori
      */
     public function create() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
         require_once ROOT_PATH . 'src/views/kategori/create.php';
     }
 
@@ -31,6 +53,8 @@ class KategoriController {
      * STORE - Proses simpan kategori baru
      */
     public function store() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nama_kategori = trim($_POST['nama_kategori']);
 
@@ -47,12 +71,12 @@ class KategoriController {
                 header("Location: index.php?page=kategori/index");
                 exit();
             } else {
-                $_SESSION['error_message'] = "Gagal menambahkan kategori!";
+                $_SESSION['error_message'] = "Gagal menyimpan kategori!";
                 header("Location: index.php?page=kategori/create");
                 exit();
             }
         } else {
-            header("Location: index.php?page=kategori/create");
+            header("Location: index.php?page=kategori/index");
             exit();
         }
     }
@@ -61,16 +85,12 @@ class KategoriController {
      * EDIT - Tampilkan form edit kategori
      */
     public function edit() {
-        $id_kategori = $_GET['id'] ?? null;
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
         
-        if (!$id_kategori) {
-            header("Location: index.php?page=kategori/index");
-            exit();
-        }
+        $id_kategori = $_GET['id'] ?? null;
+        $kategori = $this->kategoriModel->readById($id_kategori);
 
-        $data_kategori = $this->kategoriModel->readById($id_kategori);
-
-        if (!$data_kategori) {
+        if (!$kategori) {
             $_SESSION['error_message'] = "Kategori tidak ditemukan!";
             header("Location: index.php?page=kategori/index");
             exit();
@@ -83,6 +103,8 @@ class KategoriController {
      * UPDATE - Proses update kategori
      */
     public function update() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_kategori = (int)$_POST['id_kategori'];
             $nama_kategori = trim($_POST['nama_kategori']);
@@ -108,6 +130,8 @@ class KategoriController {
      * DELETE - Proses hapus kategori
      */
     public function delete() {
+        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        
         $id_kategori = $_GET['id'] ?? null;
 
         if (!$id_kategori) {
@@ -117,12 +141,12 @@ class KategoriController {
 
         if ($this->kategoriModel->delete($id_kategori)) {
             $_SESSION['success_message'] = "Kategori berhasil dihapus!";
+            header("Location: index.php?page=kategori/index");
+            exit();
         } else {
-            $_SESSION['error_message'] = "Gagal menghapus kategori!";
+            $_SESSION['error_message'] = "Gagal menghapus kategori. Mungkin data ini digunakan di tabel lain.";
+            header("Location: index.php?page=kategori/index");
+            exit();
         }
-
-        header("Location: index.php?page=kategori/index");
-        exit();
     }
 }
-?>

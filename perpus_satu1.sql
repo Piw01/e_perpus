@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Nov 2025 pada 16.42
+-- Waktu pembuatan: 28 Nov 2025 pada 18.10
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -69,7 +69,8 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`id_buku`, `isbn`, `judul`, `id_penulis`, `id_penerbit`, `id_kategori`, `tahun_terbit`, `sinopsis`, `jumlah`, `foto_sampul`) VALUES
-('A01', '978--979-015-511-5', 'Ulysses Moore: Pintu Waktu', 1, 1, 5, '2006', 'wasd', 10, 'default.png'),
+('', '123-4567-32-12', 'Tisu Basah', 5, 2, 3, '2009', 'tisu basah', 15, ''),
+('A01', '978--979-015-511-7', 'Ulysses Moore: Pintu Waktu 2', 1, 1, 4, '2008', 'wasd', 15, 'default.png'),
 ('A02', '978--979-015-511-4', 'Ulysses Moore: Peta Yang Hilang', 1, 1, 3, '2006', 'yeee', 20, 'default.png');
 
 -- --------------------------------------------------------
@@ -186,7 +187,8 @@ CREATE TABLE `penulis` (
 
 INSERT INTO `penulis` (`id_penulis`, `nama_penulis`) VALUES
 (1, 'Pierdomenico Baccalario'),
-(2, 'yoni');
+(2, 'yoni'),
+(5, 'Tere Liye');
 
 -- --------------------------------------------------------
 
@@ -290,19 +292,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `penerbit`
 --
 ALTER TABLE `penerbit`
-  MODIFY `id_penerbit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_penerbit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `penulis`
 --
 ALTER TABLE `penulis`
-  MODIFY `id_penulis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_penulis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `temp_peminjaman`
