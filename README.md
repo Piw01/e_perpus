@@ -5,3 +5,5 @@ Projek ini dibuat oleh:
   2. M Raihan Samih
   3. M Syahril Ariandi
   4. Yoni Muhammad Nizar
+
+database ada di main folder e_perpus/perpus_satu.sql
