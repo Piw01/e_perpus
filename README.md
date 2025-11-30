@@ -4,12 +4,12 @@
 
 | Halaman | Deskripsi |
 |---------|-----------|
-| ![Login](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/login.jpg) | **Halaman Login** - Interface login yang simpel dan aman |
-| ![Dashboard](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/dashboard.jpg) | **Dashboard** - Statistik real-time & quick access |
-| ![Data Buku](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/data-buku.jpg) | **Manajemen Buku** - CRUD lengkap dengan thumbnail |
-| ![Tambah Buku](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/tambah-buku.jpg) | **Form Tambah Buku** - Input lengkap dengan file upload |
-| ![Data Siswa](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/data-siswa.jpg) | **Manajemen Siswa** - Data anggota perpustakaan |
-| ![Management Admin](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/management-admin.jpg) | **Management Admin** - Kelola user sistem (Super Admin only) |
+| ![Login](https://raw.githubusercontent.com/Piw01/e-perpus/main/screenshots/login.jpg) | **Halaman Login** - Interface login yang simpel dan aman |
+| ![Dashboard](https://raw.githubusercontent.com/Piw01/e-perpus/main/screenshots/dashboard.jpg) | **Dashboard** - Statistik real-time & quick access |
+| ![Data Buku](https://raw.githubusercontent.com/Piw01/e-perpus/main/screenshots/data-buku.jpg) | **Manajemen Buku** - CRUD lengkap dengan thumbnail |
+| ![Tambah Buku](https://raw.githubusercontent.com/Piw01/e-perpus/main/screenshots/tambah-buku.jpg) | **Form Tambah Buku** - Input lengkap dengan file upload |
+| ![Data Siswa](https://raw.githubusercontent.com/Piw01/e-perpus/main/screenshots/data-siswa.jpg) | **Manajemen Siswa** - Data anggota perpustakaan |
+| ![Management Admin](https://raw.githubusercontent.com/Piw01/e-perpus/main/screenshots/management-admin.jpg) | **Management Admin** - Kelola user sistem (Super Admin only) |
 
 ---# 📚 E-PERPUS
 
