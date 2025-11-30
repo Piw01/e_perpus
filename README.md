@@ -8,3 +8,6 @@ Projek ini dibuat oleh:
 
 
   database ada di main folder e_perpus/perpus_satu.sql
+=======
+database ada di main folder e_perpus/perpus_satu.sql
+>>>>>>> f95b4f9c5613f519960a543dc4f1043049a5d9a6
