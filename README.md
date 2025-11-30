@@ -89,33 +89,33 @@
 
 ```
 ┌──────────────────────────────────────────────────┐
-│                   DATABASE SCHEMA                 │
+│                   DATABASE SCHEMA                │
 ├──────────────────────────────────────────────────┤
-│                                                   │
-│  ┌─────────┐  ┌──────────┐  ┌──────────────┐   │
-│  │  admin  │  │  siswa   │  │ kategorii    │   │
-│  ├─────────┤  ├──────────┤  ├──────────────┤   │
-│  │ id_admin│  │   nisn   │  │ id_kategori  │   │
-│  │ username│  │   nama   │  │ nama_kategori   │   │
-│  │password │  │   jk     │  └──────────────┘   │
-│  │  level  │  │ tgl_lahir│                     │
-│  └─────────┘  └──────────┘  ┌──────────────┐   │
-│                              │  penulis     │   │
-│  ┌──────────────────┐       ├──────────────┤   │
-│  │     buku         │       │ id_penulis   │   │
-│  ├──────────────────┤       │ nama_penulis │   │
-│  │  id_buku (PK)    │       └──────────────┘   │
-│  │  isbn            │                          │
-│  │  judul           │       ┌──────────────┐   │
-│  │  id_penulis (FK) │──────→│  penerbit    │   │
-│  │  id_penerbit(FK) │──┐    ├──────────────┤   │
-│  │  id_kategori(FK) │──┼───→│ id_penerbit  │   │
-│  │  tahun_terbit    │  │    │ nama_penerbit   │   │
-│  │  sinopsis        │  │    │ kota         │   │
-│  │  jumlah          │  │    └──────────────┘   │
-│  │  foto_sampul     │  └───→ kategori          │
-│  └──────────────────┘                          │
-│                                                   │
+│                                                  │
+│  ┌─────────┐  ┌──────────┐  ┌──────────────┐     │
+│  │  admin  │  │  siswa   │  │ kategorii    │     │
+│  ├─────────┤  ├──────────┤  ├──────────────┤     │
+│  │ id_admin│  │   nisn   │  │ id_kategori  │     │
+│  │ username│  │   nama   │  │ nama_kategori│     │
+│  │password │  │   jk     │  └──────────────┘     │
+│  │  level  │  │ tgl_lahir│                       │
+│  └─────────┘  └──────────┘  ┌──────────────┐     │
+│                             │   penulis    │     │
+│  ┌──────────────────┐       ├──────────────┤     │
+│  │     buku         │       │ id_penulis   │     │
+│  ├──────────────────┤       │ nama_penulis │     │
+│  │  id_buku (PK)    │       └──────────────┘     │
+│  │  isbn            │                            │
+│  │  judul           │       ┌──────────────┐     │
+│  │  id_penulis (FK) │──────→│  penerbit    │     │
+│  │  id_penerbit(FK) │──┐    ├──────────────┤     │
+│  │  id_kategori(FK) │──┼───→│ id_penerbit  │     │
+│  │  tahun_terbit    │  │    │ nama_penerbit│     │
+│  │  sinopsis        │  │    │ kota         │     │
+│  │  jumlah          │  │    └──────────────┘     │
+│  │  foto_sampul     │  └───→ kategori            │
+│  └──────────────────┘                            │
+│                                                  │
 └──────────────────────────────────────────────────┘
 ```
 
