@@ -2,7 +2,6 @@
 
 **Sistem Informasi Perpustakaan Digital Berbasis Web**
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PHP](https://img.shields.io/badge/PHP-8.2.12-purple.svg)](https://www.php.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-10.4.32-orange.svg)](https://www.mysql.com/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-blueviolet.svg)](https://getbootstrap.com/)
