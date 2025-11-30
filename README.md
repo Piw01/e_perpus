@@ -119,115 +119,7 @@
 └──────────────────────────────────────────────────┘
 ```
 
-### Tabel Utama
-
-#### 📌 admin
-```sql
-CREATE TABLE admin (
-  id_admin INT(11) PRIMARY KEY AUTO_INCREMENT,
-  nama_lengkap VARCHAR(100) NOT NULL,
-  username VARCHAR(100) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL,
-  level INT(1) NOT NULL DEFAULT 2
-);
-```
-
-#### 📚 buku
-```sql
-CREATE TABLE buku (
-  id_buku VARCHAR(5) PRIMARY KEY,
-  isbn VARCHAR(30) NOT NULL UNIQUE,
-  judul VARCHAR(255) NOT NULL,
-  id_penulis INT(11) NOT NULL,
-  id_penerbit INT(11) NOT NULL,
-  id_kategori INT(11) NOT NULL,
-  tahun_terbit VARCHAR(4) NOT NULL,
-  sinopsis TEXT NOT NULL,
-  jumlah INT(11) NOT NULL,
-  foto_sampul VARCHAR(100) NOT NULL,
-  FOREIGN KEY (id_penulis) REFERENCES penulis(id_penulis),
-  FOREIGN KEY (id_penerbit) REFERENCES penerbit(id_penerbit),
-  FOREIGN KEY (id_kategori) REFERENCES kategori(id_kategori)
-);
-```
-
-#### 👨‍🎓 siswa
-```sql
-CREATE TABLE siswa (
-  nisn VARCHAR(20) PRIMARY KEY,
-  nama_siswa VARCHAR(100) NOT NULL,
-  jenis_kelamin CHAR(1) NOT NULL,
-  tempat_lahir VARCHAR(30) NOT NULL,
-  tgl_lahir DATE NOT NULL,
-  alamat VARCHAR(255) NOT NULL,
-  no_hp VARCHAR(13) NOT NULL,
-  foto_siswa VARCHAR(100)
-);
-```
-
 ---
-
-## 📁 Struktur Folder Proyek
-
-```
-e_perpus/
-├── 📄 README.md                          # Dokumentasi proyek
-├── 📄 perpus_satu.sql                    # Database dump
-│
-├── 📂 public/                            # Web root directory
-│   ├── 📄 index.php                      # Entry point aplikasi
-│   │
-│   └── 📂 assets/                        # Static files
-│       ├── 📂 css/                       # Stylesheet
-│       │   ├── style.css
-│       │   └── bootstrap.min.css
-│       ├── 📂 js/                        # JavaScript
-│       │   ├── script.js
-│       │   ├── bootstrap.min.js
-│       │   └── validation.js
-│       └── 📂 img/                       # Images
-│           ├── logo.png
-│           └── sampul_buku/
-│
-├── 📂 src/                               # Source code
-│   ├── 📂 config/                        # Configuration
-│   │   └── Database.php                  # PDO connection
-│   │
-│   ├── 📂 controllers/                   # Business logic
-│   │   ├── AuthController.php            # Authentication
-│   │   ├── BukuController.php            # Book management
-│   │   ├── SiswaController.php           # Student management
-│   │   ├── KategoriController.php        # Category management
-│   │   ├── PenulisController.php         # Author management
-│   │   └── PenerbitController.php        # Publisher management
-│   │
-│   ├── 📂 models/                        # Data access layer
-│   │   ├── AdminModel.php
-│   │   ├── BukuModel.php
-│   │   ├── SiswaModel.php
-│   │   ├── KategoriModel.php
-│   │   ├── PenulisModel.php
-│   │   └── PenerbitModel.php
-│   │
-│   └── 📂 views/                         # Presentation layer
-│       ├── 📂 layouts/
-│       │   ├── header.php
-│       │   └── footer.php
-│       ├── 📂 auth/
-│       │   └── login.php
-│       ├── 📂 dashboard/
-│       │   └── index.php
-│       ├── 📂 buku/
-│       │   ├── index.php
-│       │   ├── create.php
-│       │   ├── edit.php
-│       │   └── show.php
-│       ├── 📂 siswa/
-│       └── 📂 errors/
-│           └── 404.php
-│
-└── 📄 .gitignore                         # Git ignore rules
-```
 
 ---
 
@@ -239,23 +131,6 @@ e_perpus/
 - Web server (Apache/Nginx)
 - Git (opsional)
 
-### Langkah Instalasi
-
-#### 1️⃣ Clone Repository
-```bash
-git clone https://github.com/yourusername/e-perpus.git
-cd e-perpus
-```
-
-#### 2️⃣ Setup Database
-```bash
-# Via phpMyAdmin atau command line
-mysql -u root -p < perpus_satu.sql
-```
-
-Atau menggunakan phpMyAdmin:
-- Buat database baru bernama `perpus_satu`
-- Import file `perpus_satu.sql`
 
 #### 3️⃣ Konfigurasi Koneksi Database
 
@@ -297,21 +172,21 @@ Gunakan akun berikut untuk testing:
 Username: min
 Password: 123
 ```
-✅ Akses: Full (Management Admin + CRUD semua data)
+ Akses: Full (Management Admin + CRUD semua data)
 
 ### 👔 ADMIN
 ```
 Username: min
 Password: 123
 ```
-✅ Akses: Data Master + Transaksi
+ Akses: Data Master + Transaksi
 
 ### 🎫 OPERATOR
 ```
 Username: min
 Password: 123
 ```
-✅ Akses: Read-Only + Transaksi
+ Akses: Read-Only + Transaksi
 
 > ⚠️ **Catatan:** Pada production, gunakan password yang strong dan unique untuk setiap akun.
 
@@ -324,8 +199,6 @@ Password: 123
 2. Masukkan username dan password
 3. Klik tombol **LOGIN**
 4. Jika berhasil, akan diarahkan ke dashboard
-
-![Login Page](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/01-login.png)
 
 ### Manajemen Data Buku
 
@@ -363,37 +236,8 @@ Prosesnya sama dengan manajemen buku, meliputi create, read, update, delete.
 
 ---
 
-## 🔒 Fitur Keamanan
 
-### 🛡️ Implementasi Keamanan
-
-| Fitur | Deskripsi |
-|-------|-----------|
-| **Password Hashing** | bcrypt dengan cost factor 10 |
-| **SQL Injection Prevention** | Prepared statements PDO |
-| **Input Validation** | Server-side & client-side validation |
-| **Input Sanitization** | `htmlspecialchars()`, `strip_tags()` |
-| **Session Management** | Timeout & role-based access control |
-| **CSRF Protection** | (Dapat ditambahkan dengan token) |
-| **File Upload Security** | Type checking, size limit, storage outside web root |
-
-### 🔑 Password Hashing
-
-Saat pembuatan user baru:
-```php
-$password_hashed = password_hash($password, PASSWORD_DEFAULT);
-```
-
-Saat login:
-```php
-if (password_verify($password, $stored_hash)) {
-    // Password correct
-}
-```
-
----
-
-## 🎓 Konsep Teknis
+## Konsep Teknis
 
 ### Arsitektur MVC
 
@@ -452,29 +296,13 @@ Render view: buku/index.php
 
 ---
 
-## 🤝 Kontribusi
-
-Proyek ini adalah tugas akademik. Untuk kontribusi atau saran:
-
-1. Fork repository ini
-2. Buat branch fitur (`git checkout -b feature/AmazingFeature`)
-3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
-4. Push ke branch (`git push origin feature/AmazingFeature`)
-5. Buat Pull Request
-
----
-
-## 📝 Lisensi
-
-Proyek ini menggunakan lisensi **MIT**. Lihat file [`LICENSE`](LICENSE) untuk detail lebih lanjut.
-
 ---
 
 ## 📞 Kontak & Support
 
-- **Email:** lutfimahesa@email.com
-- **GitHub:** [@lutfimahesa](https://github.com/lutfimahesa)
-- **Institusi:** Sekolah Tinggi Teknologi Bandung
+- **Email:** amfibloods@email.com
+- **GitHub:** [@Piw01](https://github.com/Piw01)
+- **Institusi:** Universitas Teknologi Bandung
 
 ---
 
@@ -483,27 +311,16 @@ Proyek ini menggunakan lisensi **MIT**. Lihat file [`LICENSE`](LICENSE) untuk de
 Terima kasih kepada:
 - **Dosen Pengampu:** Erick Andika, S.Kom., M.Kom
 - **Bootstrap Team** - untuk framework yang luar biasa
-- **PHP Community** - dokumentasi dan tutorial
-- **Semua contributor** yang telah membantu
+- **Semua Anggota** yang telah membantu
 
 ---
 
-## 📚 Referensi & Resource
-
-- [PHP Official Documentation](https://www.php.net/docs.php)
-- [MySQL Documentation](https://dev.mysql.com/doc/)
-- [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.0/)
-- [PDO Tutorial](https://www.php.net/manual/en/book.pdo.php)
-- [Web Security Best Practices](https://owasp.org/)
-
----
 
 ## 🔮 Fitur Masa Depan
 
 Fitur yang berencana ditambahkan:
 
 - [ ] Module Peminjaman & Pengembalian Buku
-- [ ] Notification System (Email)
 - [ ] Advanced Search & Filter
 - [ ] Data Export (Excel/PDF)
 - [ ] API REST untuk mobile app
@@ -535,18 +352,6 @@ Fitur yang berencana ditambahkan:
 
 ---
 
-## 📊 Statistik Proyek
-
-```
-Total Files:        20+
-Total Lines of Code: ~2,500+
-Database Tables:    7
-Controllers:        6
-Models:             6
-Views:              15+
-CSS Rules:          500+
-JavaScript Lines:   300+
-```
 
 ---
 
