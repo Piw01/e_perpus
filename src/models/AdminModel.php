@@ -1,6 +1,4 @@
 <?php
-// src/models/AdminModel.php
-
 class AdminModel {
     private $conn;
     private $table_name = "admin";
