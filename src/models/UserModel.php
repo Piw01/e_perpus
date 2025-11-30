@@ -1,6 +1,4 @@
 <?php
-// src/models/UserModel.php
-
 class UserModel {
     private $conn;
     private $table_name = "admin";
@@ -20,26 +18,25 @@ class UserModel {
                  . " WHERE username = :username LIMIT 0,1";
 
         $stmt = $this->conn->prepare($query);
-
         // Bind parameter
         $stmt->bindParam(':username', $username);
         $stmt->execute();
-
         // Ambil data user
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         
 
         if ($row) {
-            
-            // Verifikasi password (asumsi password sudah di-hash saat registrasi)
+            // Verifikasi password (misal password sudah di-hash saat registrasi)
             if (password_verify($password, $row['password'])) {
                 // Login berhasil
                 return $row;
             } 
+            /*
             // Untuk simulasi sederhana tanpa hashing:
             if ($password === $row['password']) {
                  return $row;
             }
+            */
         }
         
         // Login gagal

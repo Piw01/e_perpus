@@ -1,5 +1,4 @@
 <?php
-
 class PenerbitModel {
     private $conn;
     private $table_name = "penerbit";

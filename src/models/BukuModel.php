@@ -1,6 +1,4 @@
 <?php
-// src/models/BukuModel.php
-
 class BukuModel {
     private $conn;
     private $table_name = "buku";
@@ -45,23 +43,14 @@ class BukuModel {
      * CREATE - Tambah buku baru
      */
     public function create($data) {
-        // PERHATIAN: Pastikan tabel `buku` memiliki kolom `id_buku` sebagai PRIMARY KEY dan AUTO_INCREMENT,
-        // atau pastikan kolom PRIMARY KEY (misalnya ISBN jika Anda menggunakannya) tidak kosong.
-        // Berdasarkan error, kolom PRIMARY KEY (kemungkinan id_buku) menerima nilai kosong, 
-        // yang TIDAK BOLEH terjadi jika kolom tersebut tidak AUTO_INCREMENT.
-
         $query = "INSERT INTO " . $this->table_name . " 
                   (isbn, judul, id_penulis, id_penerbit, id_kategori, tahun_terbit, sinopsis, jumlah, foto_sampul) 
                   VALUES (:isbn, :judul, :id_penulis, :id_penerbit, :id_kategori, :tahun_terbit, :sinopsis, :jumlah, :foto_sampul)";
         
         $stmt = $this->conn->prepare($query);
         
-        // Perbaikan 1: Mengatasi Notice (Baris 54 & 55)
-        // Hasil dari fungsi `htmlspecialchars(strip_tags(...))` harus disimpan dalam variabel 
-        // sebelum dipass ke `bindParam`, karena fungsi tersebut mengembalikan nilai.
-        
-        $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn'])); // Line 54 (sebelumnya)
-        $judul_sanitized = htmlspecialchars(strip_tags($data['judul'])); // Line 55 (sebelumnya)
+        $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn']));
+        $judul_sanitized = htmlspecialchars(strip_tags($data['judul']));
         
         $stmt->bindParam(':isbn', $isbn_sanitized);
         $stmt->bindParam(':judul', $judul_sanitized);
@@ -73,19 +62,14 @@ class BukuModel {
         $stmt->bindParam(':jumlah', $data['jumlah']);
         $stmt->bindParam(':foto_sampul', $data['foto_sampul']);
         
-        // Perbaikan 2: Mengatasi Fatal Error (Line 64) - Meskipun penyebab utama ada di DB, 
-        // perbaikan Notice di atas adalah langkah pertama.
-
-        // Jika Anda TIDAK menggunakan AUTO_INCREMENT untuk id_buku, dan Anda ingin mengisi 
-        // id_buku saat INSERT, maka query INSERT harus menyertakan `id_buku`:
-        /*
+        
         $query = "INSERT INTO " . $this->table_name . " 
                   (id_buku, isbn, judul, id_penulis, id_penerbit, id_kategori, tahun_terbit, sinopsis, jumlah, foto_sampul) 
                   VALUES (:id_buku, :isbn, :judul, :id_penulis, :id_penerbit, :id_kategori, :tahun_terbit, :sinopsis, :jumlah, :foto_sampul)";
-        $stmt->bindParam(':id_buku', $data['id_buku']); // Anda harus menyediakan id_buku di $data
-        */
+        $stmt->bindParam(':id_buku', $data['id_buku']);
         
-        if ($stmt->execute()) { // Line 64 (tempat Fatal Error terjadi)
+        
+        if ($stmt->execute()) {
             return true;
         }
         return false;
@@ -104,13 +88,11 @@ class BukuModel {
                   tahun_terbit = :tahun_terbit, 
                   sinopsis = :sinopsis, 
                   jumlah = :jumlah" .
-                  // Penting: Pastikan tidak ada spasi ekstra setelah 'jumlah = :jumlah' jika foto_sampul kosong
                   (!empty($data['foto_sampul']) ? ", foto_sampul = :foto_sampul" : "") .
                   " WHERE id_buku = :id_buku";
         
         $stmt = $this->conn->prepare($query);
         
-        // Perbaikan Notice/Reference
         $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn']));
         $judul_sanitized = htmlspecialchars(strip_tags($data['judul']));
         
@@ -216,12 +198,6 @@ class BukuModel {
         return $row ? $row['foto_sampul'] : null;
     }
 
-    // ===================================================================
-    // METODE YANG SEBELUMNYA HILANG
-    // ===================================================================
-    /**
-     * COUNT - Menghitung total jumlah buku di database
-     */
     public function countAll() {
         $query = "SELECT COUNT(*) as total FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);

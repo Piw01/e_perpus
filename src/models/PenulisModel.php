@@ -1,5 +1,4 @@
 <?php
-
 class PenulisModel {
     private $conn;
     private $table_name = "penulis";

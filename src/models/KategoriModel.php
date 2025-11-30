@@ -1,6 +1,4 @@
 <?php
-// src/models/KategoriModel.php
-
 class KategoriModel {
     private $conn;
     private $table_name = "kategori";

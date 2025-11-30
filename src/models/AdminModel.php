@@ -8,7 +8,7 @@ class AdminModel {
     }
 
     /**
-     * READ - Ambil semua data admin (Sekarang mengambil kolom level)
+     * READ - Ambil semua data admin
      */
     public function readAll() {
         $query = "SELECT id_admin, nama_lengkap, username, level FROM " . $this->table_name . " ORDER BY nama_lengkap ASC";

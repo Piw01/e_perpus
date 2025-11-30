@@ -1,6 +1,4 @@
 <?php
-// src/models/SiswaModel.php
-
 class SiswaModel {
     private $conn;
     private $table_name = "siswa";
