@@ -1,4 +1,4 @@
-Projek ini berjudul "Aplikasi website Sistem Informasi Perpustakaan", dengan nama "E-Perpus".
+Projek ini berjudul "Aplikasi WEB Sistem Informasi Perpustakaan", dengan nama "E-Perpus".
 
 Projek ini dibuat oleh:
   1. Lutfi Mahesa Abdul kholiq
