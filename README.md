@@ -12,12 +12,15 @@ USERNAME & PASSWORD:
   
 SUPER ADMIN: 
   Username: min
+  
   Password: 123
 
 ADMIN:
   Username: min
+  
   Password: 123
 
 OPERATOR:
   Username: min
+  
   Password: 123
