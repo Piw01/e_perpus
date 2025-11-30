@@ -142,13 +142,6 @@ private const DB_USER = 'root';              // Username MySQL Anda
 private const DB_PASS = '';                 // Password MySQL Anda
 ```
 
-#### 4️⃣ Setup Folder Assets
-```bash
-# Pastikan folder ini writable
-mkdir -p public/assets/img/sampul_buku
-chmod 755 public/assets/img/sampul_buku
-```
-
 #### 5️⃣ Jalankan Aplikasi
 
 **Dengan XAMPP:**
