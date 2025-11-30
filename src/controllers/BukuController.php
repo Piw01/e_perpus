@@ -1,5 +1,4 @@
 <?php
-// src/controllers/BukuController.php
 
 require_once ROOT_PATH . 'src/models/BukuModel.php';
 require_once ROOT_PATH . 'src/config/Database.php';
@@ -14,7 +13,7 @@ class BukuController {
             session_start();
         }
         
-        // Ambil level pengguna
+        // Mengambil level pengguna
         $this->user_level = $_SESSION['level'] ?? 0;
 
         $database = new Database();
@@ -135,7 +134,6 @@ class BukuController {
         $id_buku = $_POST['id_buku'] ?? null;
         $isbn = trim($_POST['isbn'] ?? '');
         $judul = trim($_POST['judul'] ?? '');
-        // ... (ambil data lain sama seperti sebelumnya)
         $id_penulis = $_POST['id_penulis'] ?? null;
         $id_penerbit = $_POST['id_penerbit'] ?? null;
         $id_kategori = $_POST['id_kategori'] ?? null;

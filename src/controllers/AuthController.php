@@ -1,5 +1,4 @@
 <?php
-// src/controllers/AuthController.php
 
 class AuthController {
     private $userModel;
@@ -33,11 +32,10 @@ class AuthController {
             $user = $this->userModel->login($username, $password);
 
             if ($user) {
-                // Set Session, sekarang termasuk LEVEL
                 $_SESSION['user_id'] = $user['id_admin'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
-                $_SESSION['level'] = $user['level']; // <--- PENTING: Simpan level
+                $_SESSION['level'] = $user['level'];
                 
                 header("Location: index.php?page=dashboard/index");
                 exit();

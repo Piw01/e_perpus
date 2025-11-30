@@ -91,7 +91,4 @@ if (file_exists($controller_file)) {
     http_response_code(404);
     echo "404 Not Found: Controller {$controller_name} tidak ditemukan.";
 }
-
-// ... (Kode penutup di bagian bawah) ...
-
 ?>

@@ -1,7 +1,4 @@
 <?php
-// src/controllers/PenulisController.php
-
-// Pastikan file-file yang dibutuhkan di-load
 require_once ROOT_PATH . 'src/models/PenulisModel.php';
 require_once ROOT_PATH . 'src/config/Database.php';
 
@@ -9,7 +6,7 @@ class PenulisController {
     private $penulisModel;
 
     public function __construct() {
-        // Mulai session jika belum dimulai (PENTING untuk pesan flash dan level)
+        // Mulai session jika belum dimulai
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -38,12 +35,12 @@ class PenulisController {
     }
 
     public function create() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         require_once ROOT_PATH . 'src/views/penulis/create.php';
     }
 
     public function store() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nama_penulis = trim($_POST['nama_penulis']);
@@ -69,7 +66,7 @@ class PenulisController {
     }
 
     public function edit() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         $id_penulis = $_GET['id'] ?? null;
         $penulis = $this->penulisModel->readById($id_penulis);
@@ -83,7 +80,7 @@ class PenulisController {
     }
 
     public function update() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_penulis = (int)$_POST['id_penulis'];
@@ -103,7 +100,7 @@ class PenulisController {
     }
 
     public function delete() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         $id_penulis = $_GET['id'] ?? null;
         if (!$id_penulis) {

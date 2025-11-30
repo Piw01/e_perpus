@@ -1,7 +1,4 @@
 <?php
-// src/controllers/SiswaController.php
-
-// Pastikan file-file yang dibutuhkan di-load
 require_once ROOT_PATH . 'src/models/SiswaModel.php';
 require_once ROOT_PATH . 'src/config/Database.php';
 
@@ -9,7 +6,7 @@ class SiswaController {
     private $siswaModel;
 
     public function __construct() {
-        // Mulai session jika belum dimulai (PENTING untuk pesan flash dan level)
+        // Mulai session jika belum dimulai
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -57,7 +54,7 @@ class SiswaController {
      * Dipanggil oleh: index.php?page=siswa/store (POST)
      */
     public function store() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Ambil data dari form
@@ -69,13 +66,10 @@ class SiswaController {
             $alamat = trim($_POST['alamat']);
             $no_hp = trim($_POST['no_hp']);
             
-            // Proses Upload Foto (Contoh sederhana, tambahkan validasi yang lebih ketat!)
+            // Proses Upload Foto
             $foto_siswa = null;
             if (isset($_FILES['foto_siswa']) && $_FILES['foto_siswa']['error'] === UPLOAD_ERR_OK) {
-                // Di sini Anda perlu memproses upload file dan mendapatkan nama filenya
-                // Karena logika upload tidak ada, ini adalah placeholder.
-                // Asumsi: Proses upload sukses dan mengembalikan nama file atau null
-                $foto_siswa = 'placeholder_foto.jpg'; // Ganti dengan logika upload file sesungguhnya
+                $foto_siswa = 'placeholder_foto.jpg';
             }
 
 
@@ -120,7 +114,7 @@ class SiswaController {
      * Dipanggil oleh: index.php?page=siswa/edit&id=NISN
      */
     public function edit() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         $nisn = $_GET['id'] ?? null;
         $siswa = $this->siswaModel->readById($nisn);
@@ -139,11 +133,11 @@ class SiswaController {
      * Dipanggil oleh: index.php?page=siswa/update (POST)
      */
     public function update() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Ambil data dari form
-            $nisn = trim($_POST['nisn']); // NISN as key, tidak boleh berubah
+            $nisn = trim($_POST['nisn']);
             $nama_siswa = trim($_POST['nama_siswa']);
             $jenis_kelamin = trim($_POST['jenis_kelamin']);
             $tempat_lahir = trim($_POST['tempat_lahir']);
@@ -156,12 +150,12 @@ class SiswaController {
             
             if (isset($_FILES['foto_siswa']) && $_FILES['foto_siswa']['error'] === UPLOAD_ERR_OK) {
                 // Proses upload file baru
-                // Asumsi: Proses upload sukses dan mengembalikan nama file
+                // Proses upload sukses dan mengembalikan nama file
                 $foto_siswa = 'placeholder_foto_baru.jpg'; // Ganti dengan logika upload file sesungguhnya
             }
 
 
-            // Buat array data
+            // array data
             $data = [
                 'nama_siswa' => $nama_siswa,
                 'jenis_kelamin' => $jenis_kelamin,
@@ -192,7 +186,7 @@ class SiswaController {
      * Dipanggil oleh: index.php?page=siswa/delete&id=NISN
      */
     public function delete() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         $nisn = $_GET['id'] ?? null;
 

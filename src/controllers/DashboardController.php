@@ -1,17 +1,13 @@
 <?php
-// src/controllers/DashboardController.php
-
-// PENTING: Lakukan require_once untuk Model yang dibutuhkan.
 require_once ROOT_PATH . 'src/models/BukuModel.php';
 require_once ROOT_PATH . 'src/models/SiswaModel.php';
-// require_once ROOT_PATH . 'src/config/Database.php'; (Biasanya di-autoload)
+require_once ROOT_PATH . 'src/config/Database.php';
 
 class DashboardController {
     private $bukuModel;
     private $siswaModel;
 
     public function __construct() {
-        // Asumsi class Database sudah tersedia
         $database = new Database(); 
         $db = $database->getConnection();
         
@@ -23,12 +19,10 @@ class DashboardController {
     public function index() {
         // Ambil data hitungan dari Model
         $total_buku = $this->bukuModel->countAll();
-        $total_siswa = $this->siswaModel->countAll();
-        
+        $total_siswa = $this->siswaModel->countAll();        
         // Data dummy untuk 'Buku Dipinjam' karena belum ada Model Transaksi
         $buku_dipinjam = 15; 
         
-        // Memanggil View. Semua variabel di atas akan tersedia di View.
         require_once ROOT_PATH . 'src/views/dashboard/index.php';
     }
 }

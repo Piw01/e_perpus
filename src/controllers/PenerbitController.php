@@ -1,7 +1,4 @@
 <?php
-// src/controllers/PenerbitController.php
-
-// Pastikan file-file yang dibutuhkan di-load
 require_once ROOT_PATH . 'src/models/PenerbitModel.php';
 require_once ROOT_PATH . 'src/config/Database.php';
 
@@ -9,7 +6,7 @@ class PenerbitController {
     private $penerbitModel;
 
     public function __construct() {
-        // Mulai session jika belum dimulai (PENTING untuk pesan flash dan level)
+        // Mulai session jika belum dimulai
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -38,12 +35,12 @@ class PenerbitController {
     }
 
     public function create() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         require_once ROOT_PATH . 'src/views/penerbit/create.php';
     }
 
     public function store() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nama_penerbit = trim($_POST['nama_penerbit']);
@@ -73,7 +70,7 @@ class PenerbitController {
     }
 
     public function edit() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         $id_penerbit = $_GET['id'] ?? null;
         $penerbit = $this->penerbitModel->readById($id_penerbit);
@@ -87,7 +84,7 @@ class PenerbitController {
     }
 
     public function update() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_penerbit = (int)$_POST['id_penerbit'];
@@ -111,7 +108,7 @@ class PenerbitController {
     }
 
     public function delete() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         $id_penerbit = $_GET['id'] ?? null;
         if (!$id_penerbit) {

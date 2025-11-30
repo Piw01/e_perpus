@@ -1,5 +1,4 @@
 <?php
-// src/controllers/AdminController.php
 
 require_once ROOT_PATH . 'src/models/AdminModel.php';
 require_once ROOT_PATH . 'src/config/Database.php';
@@ -13,13 +12,12 @@ class AdminController {
         }
 
         // --- PROTEKSI HALAMAN (HANYA SUPER ADMIN / LEVEL 1) ---
-        // Jika level tidak ada atau bukan 1, tendang ke dashboard
+        // Jika level tidak ada atau bukan 1, dialihkan ke dashboard
         if (!isset($_SESSION['level']) || $_SESSION['level'] != 1) {
             $_SESSION['error_message'] = "Akses Ditolak. Halaman ini hanya untuk Super Admin.";
             header("Location: index.php?page=dashboard/index");
             exit();
         }
-        // -----------------------------------------------------
 
         $db_instance = new Database();
         $db = $db_instance->getConnection();

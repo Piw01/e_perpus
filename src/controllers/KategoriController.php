@@ -1,7 +1,4 @@
 <?php
-// src/controllers/KategoriController.php
-
-// Pastikan file-file yang dibutuhkan di-load
 require_once ROOT_PATH . 'src/models/KategoriModel.php';
 require_once ROOT_PATH . 'src/config/Database.php';
 
@@ -9,7 +6,7 @@ class KategoriController {
     private $kategoriModel;
 
     public function __construct() {
-        // Mulai session jika belum dimulai (PENTING untuk pesan flash dan level)
+        // Mulai session jika belum dimulai
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
@@ -45,7 +42,7 @@ class KategoriController {
      * CREATE - Tampilkan form tambah kategori
      */
     public function create() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         require_once ROOT_PATH . 'src/views/kategori/create.php';
     }
 
@@ -53,7 +50,7 @@ class KategoriController {
      * STORE - Proses simpan kategori baru
      */
     public function store() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nama_kategori = trim($_POST['nama_kategori']);
@@ -85,7 +82,7 @@ class KategoriController {
      * EDIT - Tampilkan form edit kategori
      */
     public function edit() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         $id_kategori = $_GET['id'] ?? null;
         $kategori = $this->kategoriModel->readById($id_kategori);
@@ -103,7 +100,7 @@ class KategoriController {
      * UPDATE - Proses update kategori
      */
     public function update() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id_kategori = (int)$_POST['id_kategori'];
@@ -130,7 +127,7 @@ class KategoriController {
      * DELETE - Proses hapus kategori
      */
     public function delete() {
-        $this->checkAccess(); // Tambahkan Pengecekan Akses
+        $this->checkAccess(); // Pengecekan Akses
         
         $id_kategori = $_GET['id'] ?? null;
 
