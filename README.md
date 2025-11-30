@@ -5,7 +5,7 @@
 [![PHP](https://img.shields.io/badge/PHP-8.2.12-purple.svg)](https://www.php.net/)
 [![MySQL](https://img.shields.io/badge/MySQL-10.4.32-orange.svg)](https://www.mysql.com/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-blueviolet.svg)](https://getbootstrap.com/)
-[![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)](#)
+[![Status](https://img.shields.io/badge/Status-Development-yellow.svg)](#)
 
 > Aplikasi web modern untuk mengelola data perpustakaan dengan fitur login multi-level dan CRUD lengkap. Dikembangkan sebagai tugas Ujian Tengah Semester mata kuliah **Pemrograman Web 1** di Sekolah Tinggi Teknologi Bandung.
 
