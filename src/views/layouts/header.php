@@ -7,7 +7,7 @@ $user_level = $_SESSION['level'] ?? 0;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | E-Perpus</title>
+    <title>Dashboard | E-Perpus</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="/e_perpus/public/assets/css/style.css" rel="stylesheet">
@@ -29,7 +29,7 @@ $user_level = $_SESSION['level'] ?? 0;
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=dashboard/index">Dashboard</a>
+                    <a class="nav-link" href="index.php?page=dashboard/index">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMaster" role="button" data-bs-toggle="dropdown">
