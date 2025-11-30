@@ -1,4 +1,17 @@
-# 📚 E-PERPUS
+---
+
+## 📸 Galeri Screenshots
+
+| Halaman | Deskripsi |
+|---------|-----------|
+| ![Login](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/login.jpg) | **Halaman Login** - Interface login yang simpel dan aman |
+| ![Dashboard](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/dashboard.jpg) | **Dashboard** - Statistik real-time & quick access |
+| ![Data Buku](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/data-buku.jpg) | **Manajemen Buku** - CRUD lengkap dengan thumbnail |
+| ![Tambah Buku](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/tambah-buku.jpg) | **Form Tambah Buku** - Input lengkap dengan file upload |
+| ![Data Siswa](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/data-siswa.jpg) | **Manajemen Siswa** - Data anggota perpustakaan |
+| ![Management Admin](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/management-admin.jpg) | **Management Admin** - Kelola user sistem (Super Admin only) |
+
+---# 📚 E-PERPUS
 
 **Sistem Informasi Perpustakaan Digital Berbasis Web**
 
@@ -10,7 +23,33 @@
 
 > Aplikasi web modern untuk mengelola data perpustakaan dengan fitur login multi-level dan CRUD lengkap. Dikembangkan sebagai tugas Ujian Tengah Semester mata kuliah **Pemrograman Web 1** di Sekolah Tinggi Teknologi Bandung.
 
----
+## 🎨 Screenshot Galeri
+
+### Dashboard
+Tampilan dashboard dengan statistik real-time dan akses cepat ke fitur utama.
+![Dashboard](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/11-dashboard.png)
+
+### Fitur CRUD Lengkap
+
+**Create - Tambah Data**
+- Form responsif dengan validasi
+- Upload file untuk sampul/foto
+- Dropdown untuk relasi antar tabel
+
+**Read - Tampil Data**
+- Tabel dengan thumbnail
+- Pagination untuk data besar
+- Search dan filter functionality
+
+**Update - Edit Data**
+- Form pre-filled dengan data lama
+- Validasi perubahan data
+- Optional file update
+
+**Delete - Hapus Data**
+- Konfirmasi sebelum delete
+- Pesan sukses/error
+- Cleanup file otomatis
 
 ## 🎯 Tentang Proyek
 
@@ -320,11 +359,13 @@ Password: 123
 
 ## 📖 Panduan Penggunaan
 
-### Login
+### 🔐 Login
 1. Akses halaman login di `index.php?page=auth/login`
 2. Masukkan username dan password
 3. Klik tombol **LOGIN**
 4. Jika berhasil, akan diarahkan ke dashboard
+
+![Login Page](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/01-login.png)
 
 ### Manajemen Data Buku
 
@@ -343,18 +384,47 @@ Password: 123
    - Sinopsis
 4. Klik **Simpan Buku**
 
+![Tambah Buku](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/02-tambah-buku.png)
+
 #### Edit Buku
 1. Di tabel data buku, klik ikon **Edit** (✏️)
 2. Ubah data yang diperlukan
 3. Klik **Perbarui Buku**
+
+![Edit Buku](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/03-edit-buku.png)
 
 #### Hapus Buku
 1. Di tabel data buku, klik ikon **Hapus** (🗑️)
 2. Konfirmasi penghapusan
 3. Data buku akan terhapus dari sistem
 
-### Manajemen Data Siswa
-Prosesnya sama dengan manajemen buku, meliputi create, read, update, delete.
+![Data Buku](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/04-data-buku.png)
+
+### 👥 Manajemen Data Siswa
+1. Dari dashboard, klik **Data Master → Data Siswa**
+2. Klik **+ Tambah Siswa Baru** untuk menambah data baru
+3. Isi form dengan informasi lengkap siswa
+4. Klik **Simpan Data**
+
+![Tambah Siswa](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/05-tambah-siswa.png)
+
+![Data Siswa](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/06-data-siswa.png)
+
+### 📚 Manajemen Data Master (Kategori, Penulis, Penerbit)
+
+#### Kategori Buku
+![Data Kategori](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/07-data-kategori.png)
+
+#### Penulis
+![Data Penulis](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/08-data-penulis.png)
+
+#### Penerbit
+![Data Penerbit](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/09-data-penerbit.png)
+
+### 👨‍💼 Management Admin (Super Admin Only)
+Hanya tersedia untuk level Super Admin - kelola akun admin sistem.
+
+![Management Admin](https://raw.githubusercontent.com/yourusername/e-perpus/main/screenshots/10-management-admin.png)
 
 ### Logout
 - Klik nama user di navbar → **Logout**
