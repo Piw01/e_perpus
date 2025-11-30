@@ -49,7 +49,7 @@
 |------|-----|------|
 | Lutfi Mahesa Abdul Kholiq | 233552011147 | Lead Developer |
 | M Raihan Samih | 23552011122 | Frontend Developer |
-| M Syahril Ariandi | 23552011124 | Database Developer |
+| M Syahril Ariandi | 23552011124 | Database Engineer |
 | Yoni Muhammad Nizar | 23552011142 | Database Engineer |
 
 **Program Studi:** Teknik Informatika  
