@@ -1,5 +1,4 @@
 <?php 
-// src/views/layouts/header.php
 // Ambil level dari session, default 0
 $user_level = $_SESSION['level'] ?? 0;
 ?>

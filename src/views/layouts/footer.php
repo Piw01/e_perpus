@@ -1,10 +1,9 @@
 <?php 
-// src/views/layouts/footer.php
 ?>
 <style>
-    /* CSS tambahan untuk merapikan link dan flag di footer */
+    /* Untuk merapikan link dan flag di footer */
     .bg-dark a {
-        display: block; /* Membuat link Information, Services, Legal rapi vertikal */
+        display: block; /* Membuat link di footer rapi vertikal */
         color: #adb5bd;
         text-decoration: none;
         margin-bottom: 5px;

@@ -1,5 +1,4 @@
 <?php
-// src/views/siswa/index.php
 include(ROOT_PATH . 'src/views/layouts/header.php');
 ?>
 

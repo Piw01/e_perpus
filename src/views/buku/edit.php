@@ -1,8 +1,5 @@
 <?php 
-// src/views/buku/edit.php
-// Variabel $buku, $kategori, $penulis, $penerbit harus diset oleh BukuController::edit()
-
-// Ambil data POST dari session jika ada error (prioritaskan data POST)
+// Ambil data POST dari session jika ada error
 $data = $_SESSION['post_data'] ?? $buku;
 unset($_SESSION['post_data']);
 
@@ -159,7 +156,6 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
     </div>
 </div>
 
-<!-- Script untuk validasi form sisi klien -->
 <script>
     document.getElementById('bukuEditForm').addEventListener('submit', function(event) {
         let isValid = true;
@@ -179,7 +175,7 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
             }
         }
         
-        // Validasi field wajib
+        // Validasi field
         validateField('isbn');
         validateField('judul');
         validateField('id_penulis', true);
@@ -189,7 +185,7 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
         validateField('jumlah', false, 1);
         validateField('sinopsis');
 
-        // Validasi file (opsional, hanya cek jika ada file)
+        // Validasi file
         const foto_sampul = document.getElementById('foto_sampul');
         if (foto_sampul.files.length > 0) {
             const file = foto_sampul.files[0];
@@ -200,7 +196,7 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
             if (file.size > maxSize || !allowedExt.includes(fileExt)) {
                 foto_sampul.classList.add('is-invalid');
                 isValid = false;
-                // Di sini Anda bisa menambahkan pesan error yang lebih spesifik jika diperlukan
+                // Menambahkan pesan error yang lebih spesifik jika diperlukan
             }
         }
 
@@ -212,6 +208,5 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
 </script>
 
 <?php 
-// Memuat footer
 include(ROOT_PATH . 'src/views/layouts/footer.php'); 
 ?>

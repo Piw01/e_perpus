@@ -1,8 +1,6 @@
 <?php 
-// src/views/dashboard/index.php
-// Variabel yang tersedia di sini: $total_buku, $total_siswa, $buku_dipinjam
 
-include(ROOT_PATH . 'src/views/layouts/header.php'); // Layout Header & Navbar
+include(ROOT_PATH . 'src/views/layouts/header.php');
 ?>
 
 <div class="container mt-4">

@@ -1,6 +1,4 @@
 <?php 
-// src/views/buku/index.php
-// Variabel $data_buku (array of assoc) harus diset oleh BukuController::index()
 ?>
 
 <?php include(ROOT_PATH . 'src/views/layouts/header.php'); ?>
@@ -132,7 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // Extract info from data-bs-* attributes
             const id = button.getAttribute('data-id');
             const title = button.getAttribute('data-judul');
-            
             // Update the modal's content.
             const bookTitle = deleteModal.querySelector('#bookTitle');
             const deleteButton = deleteModal.querySelector('#deleteButton');

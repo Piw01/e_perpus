@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-body">
                         <?php 
-                        // Tampilkan pesan error jika ada (Pastikan session_start() sudah dijalankan di index.php/AuthController)
+                        // Tampilkan pesan error jika ada
                         if (isset($_SESSION['error_message'])): ?>
                             <div class="alert alert-danger" role="alert">
                                 <?= htmlspecialchars($_SESSION['error_message']); ?>

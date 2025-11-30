@@ -1,7 +1,4 @@
 <?php 
-// src/views/buku/create.php
-// Variabel $kategori, $penulis, $penerbit harus diset oleh BukuController::create()
-
 // Ambil data POST dari session jika ada error
 $post_data = $_SESSION['post_data'] ?? [];
 unset($_SESSION['post_data']);
@@ -29,7 +26,6 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
                     <form action="index.php?page=buku/store" method="POST" enctype="multipart/form-data" id="bukuForm">
                         
                         <div class="row">
-                            <!-- Kolom Kiri -->
                             <div class="col-md-6">
                                 <!-- ISBN -->
                                 <div class="mb-3">
@@ -63,7 +59,7 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
                                     </select>
                                     <div class="invalid-feedback">Penulis wajib dipilih.</div>
                                 </div>
-                                
+
                                 <!-- Penerbit -->
                                 <div class="mb-3">
                                     <label for="id_penerbit" class="form-label">Penerbit:</label>
@@ -94,7 +90,7 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
                                     <div class="invalid-feedback">Kategori wajib dipilih.</div>
                                 </div>
                             </div>
-                            
+
                             <!-- Kolom Kanan -->
                             <div class="col-md-6">
                                 <!-- Tahun Terbit -->
@@ -148,11 +144,9 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
     </div>
 </div>
 
-<!-- Script untuk validasi form sisi klien -->
 <script>
     document.getElementById('bukuForm').addEventListener('submit', function(event) {
         let isValid = true;
-        
         // Fungsi untuk validasi field
         function validateField(id, isSelect = false, minVal = null) {
             const field = document.getElementById(id);
@@ -168,7 +162,7 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
             }
         }
         
-        // Validasi field wajib
+        // Validasi field
         validateField('isbn');
         validateField('judul');
         validateField('id_penulis', true);
@@ -178,7 +172,7 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
         validateField('jumlah', false, 1);
         validateField('sinopsis');
 
-        // Validasi file (opsional, hanya cek jika ada file)
+        // Validasi file
         const foto_sampul = document.getElementById('foto_sampul');
         if (foto_sampul.files.length > 0) {
             const file = foto_sampul.files[0];
@@ -189,7 +183,7 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
             if (file.size > maxSize || !allowedExt.includes(fileExt)) {
                 foto_sampul.classList.add('is-invalid');
                 isValid = false;
-                // Di sini Anda bisa menambahkan pesan error yang lebih spesifik jika diperlukan
+                // Menambahkan pesan error yang lebih spesifik jika diperlukan
             }
         }
 
@@ -201,6 +195,5 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
 </script>
 
 <?php 
-// Memuat footer
 include(ROOT_PATH . 'src/views/layouts/footer.php'); 
 ?>
