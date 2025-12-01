@@ -11,11 +11,11 @@
 
 ---
 
-## 🎯 Tentang Proyek
+## Tentang Proyek
 
 **E-PERPUS** adalah solusi manajemen perpustakaan yang dirancang untuk mempermudah administrasi dan pengelolaan data buku serta anggota perpustakaan. Aplikasi ini menerapkan arsitektur **MVC (Model-View-Controller)** dengan implementasi keamanan standar industri.
 
-### ✨ Fitur Utama
+### Fitur Utama
 
 - 🔐 **Sistem Login Multi-Level** dengan role-based access control
   - Super Admin (Full Access)
@@ -58,7 +58,7 @@
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 ### Frontend
 - **HTML5** - Markup structure
@@ -123,7 +123,7 @@
 
 ---
 
-## 🚀 Panduan Instalasi
+## Panduan Instalasi
 
 ### Prerequisites
 - PHP 8.0+ dengan ekstensi PDO MySQL
@@ -291,7 +291,7 @@ Render view: buku/index.php
 
 ---
 
-## 📞 Kontak & Support
+## Kontak & Support
 
 - **Email:** amfibloods@email.com
 - **GitHub:** [@Piw01](https://github.com/Piw01)
@@ -299,7 +299,7 @@ Render view: buku/index.php
 
 ---
 
-## 🙏 Ucapan Terima Kasih
+## Ucapan Terima Kasih
 
 Terima kasih kepada:
 - **Dosen Pengampu:** Erick Andika, S.Kom., M.Kom
@@ -309,7 +309,7 @@ Terima kasih kepada:
 ---
 
 
-## 🔮 Fitur Masa Depan
+## Fitur Masa Depan
 
 Fitur yang berencana ditambahkan:
 
@@ -324,7 +324,7 @@ Fitur yang berencana ditambahkan:
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Error: "Koneksi database gagal"
 **Solusi:**
@@ -348,7 +348,7 @@ Fitur yang berencana ditambahkan:
 
 ---
 
-## ⭐ Jika Proyek Ini Membantu
+## Jika Proyek Ini Membantu
 
 Jangan lupa beri **star** ⭐ di repository ini!
 
@@ -360,7 +360,7 @@ Jangan lupa beri **star** ⭐ di repository ini!
 
 ---
 
-**Happy Coding! 🚀**
+**Happy Coding!**
 
 *Last Updated: December 2025*  
 *Version: 1.0.0*
