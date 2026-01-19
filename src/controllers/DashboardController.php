@@ -24,7 +24,7 @@ class DashboardController {
     public function index() {
         // Data real dari database
         $total_buku = $this->bukuModel->countAll();
-        $total_anggota = $this->anggotaModel->countAktif();
+        $total_anggota = $this->anggotaModel->countAll();
         $buku_dipinjam = $this->peminjamanModel->countDipinjam();
         $total_terlambat = $this->peminjamanModel->countTerlambat();
         $denda_belum_lunas = $this->pengembalianModel->sumDendaBelumLunas();

@@ -21,7 +21,7 @@ class BukuModel {
             ORDER BY b.judul ASC";
             
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+            $stmt->execute();
         return $stmt;
     }
 
