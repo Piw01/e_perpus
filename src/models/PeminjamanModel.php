@@ -7,8 +7,9 @@ class PeminjamanModel {
         $this->conn = $db;
     }
 
-    public function readAll() {
-        $query = "SELECT p.*, a.nama_lengkap, a.no_anggota, adm.username as admin_nama
+
+public function readAll() {
+        $query = "SELECT p.*, a.nama_lengkap, a.no_anggota, adm.nama_lengkap as admin_nama
                   FROM {$this->table} p
                   JOIN anggota a ON p.id_anggota = a.id_anggota
                   JOIN admin adm ON p.id_admin = adm.id_admin
@@ -17,7 +18,6 @@ class PeminjamanModel {
         $stmt->execute();
         return $stmt;
     }
-
     public function readById($id) {
         $query = "SELECT p.*, a.nama_lengkap, a.no_hp, a.no_anggota
                   FROM {$this->table} p

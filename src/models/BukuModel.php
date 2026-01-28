@@ -12,7 +12,8 @@ class BukuModel {
      */
     public function readAll() {
         $query = "SELECT 
-            b.id_buku, b.isbn, b.judul, b.tahun_terbit, b.jumlah, b.foto_sampul,
+            b.id_buku, b.isbn, b.judul, b.tahun_terbit, 
+            b.jumlah_total, b.jumlah_tersedia, b.foto_sampul, b.status,
             k.nama_kategori, pen.nama_penulis, per.nama_penerbit 
             FROM " . $this->table_name . " b
             LEFT JOIN kategori k ON b.id_kategori = k.id_kategori
@@ -24,7 +25,6 @@ class BukuModel {
         $stmt->execute();
         return $stmt;
     }
-
     /**
      * READ - Ambil satu buku berdasarkan ID
      */

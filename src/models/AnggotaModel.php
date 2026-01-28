@@ -23,7 +23,7 @@ class AnggotaModel {
     }
 
     public function readById($id) {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE id = ? LIMIT 0,1";
+        $query = "SELECT * FROM " . $this->table_name . " WHERE id_anggota = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $id);
         $stmt->execute();
@@ -179,7 +179,7 @@ class AnggotaModel {
     }
 
     public function delete($id) {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+        $query = "DELETE FROM " . $this->table_name . " WHERE id_anggota = ?";
         $stmt = $this->conn->prepare($query);
         $id = htmlspecialchars(strip_tags($id));
         $stmt->bindParam(1, $id);
@@ -193,24 +193,24 @@ class AnggotaModel {
 
     public function generateNoAnggota() {
         $year = date('Y');
-        $query = "SELECT MAX(no_anggota) as max_no FROM " . $this->table_name . " WHERE no_anggota LIKE 'AG$year%'";
+        $query = "SELECT MAX(no_anggota) as max_no FROM " . $this->table_name . " WHERE no_anggota LIKE 'ANG-$year%'";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         $max_no = $row['max_no'];
 
         if ($max_no) {
-            $last_number = (int) substr($max_no, -5);
+            $last_number = (int) substr($max_no, -3);
             $next_number = $last_number + 1;
         } else {
             $next_number = 1;
         }
 
-        return 'AG' . $year . sprintf('%05d', $next_number);
+        return 'ANG-' . $year . '-' . sprintf('%03d', $next_number);
     }
 
     public function usernameExists($username) {
-        $query = "SELECT id FROM " . $this->table_name . " WHERE username = ? LIMIT 0,1";
+        $query = "SELECT id_anggota FROM " . $this->table_name . " WHERE username = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $username);
         $stmt->execute();
@@ -218,7 +218,7 @@ class AnggotaModel {
     }
 
     public function emailExists($email) {
-        $query = "SELECT id FROM " . $this->table_name . " WHERE email = ? LIMIT 0,1";
+        $query = "SELECT id_anggota FROM " . $this->table_name . " WHERE email = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $email);
         $stmt->execute();
@@ -226,11 +226,40 @@ class AnggotaModel {
     }
 
     public function nikExists($nik) {
-        $query = "SELECT id FROM " . $this->table_name . " WHERE nik = ? LIMIT 0,1";
+        $query = "SELECT id_anggota FROM " . $this->table_name . " WHERE nik = ? LIMIT 0,1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $nik);
         $stmt->execute();
         return $stmt->rowCount() > 0;
+    }
+    /**
+     * LOGIN - Verifikasi username & password anggota
+     */
+    public function login($username, $password) {
+        $query = "SELECT id_anggota, no_anggota, nama_lengkap, username, password, 
+                         status_anggota, tanggal_expired, total_pinjam, denda_aktif,
+                         email, no_hp, pekerjaan, instansi, alamat, kota, tanggal_daftar
+                  FROM " . $this->table_name . " 
+                  WHERE username = :username 
+                  AND status_anggota = 'aktif'
+                  LIMIT 1";
+
+        $stmt = $this->conn->prepare($query);
+        $username = htmlspecialchars(strip_tags($username));
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        
+        if ($stmt->rowCount() === 1) {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $hashed_password = $row['password'];
+
+            // Verifikasi password
+            if (password_verify($password, $hashed_password)) {
+                unset($row['password']); // Jangan return password
+                return $row; // Return data anggota
+            }
+        }
+        return false;
     }
 }
 ?>
