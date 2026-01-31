@@ -51,8 +51,20 @@
                                             <span class="badge bg-success">Tepat Waktu</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td><strong>Rp <?= number_format($kmb['total_denda']) ?></strong></td>
                                     <td>
+                                        <strong>Rp <?= number_format($kmb['total_denda']) ?></strong><br>
+                                        <small class="text-muted">
+                                            <?php if ($kmb['denda_keterlambatan'] > 0): ?>
+                                                ⏱ Telat: Rp <?= number_format($kmb['denda_keterlambatan']) ?><br>
+                                            <?php endif; ?>
+                                            <?php if ($kmb['denda_kerusakan'] > 0): ?>
+                                                📕 Rusak: Rp <?= number_format($kmb['denda_kerusakan']) ?><br>
+                                            <?php endif; ?>
+                                            <?php if ($kmb['denda_kehilangan'] > 0): ?>
+                                                ❌ Hilang: Rp <?= number_format($kmb['denda_kehilangan']) ?>
+                                            <?php endif; ?>
+                                        </small>
+                                    </td>                                    <td>
                                         <?php if ($kmb['status_bayar'] == 'lunas'): ?>
                                             <span class="badge bg-success">Lunas</span>
                                         <?php elseif ($kmb['status_bayar'] == 'dicicil'): ?>
@@ -80,6 +92,11 @@
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="id_pengembalian" value="<?= $kmb['id_pengembalian'] ?>">
                                                                 <p><strong>Sisa Denda:</strong> Rp <?= number_format($kmb['sisa_denda']) ?></p>
+                                                                <p style="font-size:14px; color:#666; margin-bottom:10px;">
+                                                                    ⏱ Telat: Rp <?= number_format($kmb['denda_keterlambatan']) ?><br>
+                                                                    📕 Rusak: Rp <?= number_format($kmb['denda_kerusakan']) ?><br>
+                                                                    ❌ Hilang: Rp <?= number_format($kmb['denda_kehilangan']) ?>
+                                                                </p> 
                                                                 <div class="mb-3">
                                                                     <label class="form-label">Jumlah Dibayar</label>
                                                                     <input type="number" class="form-control" name="jumlah_bayar" 

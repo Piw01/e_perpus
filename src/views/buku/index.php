@@ -70,7 +70,7 @@
                                     <td><?= htmlspecialchars($row['nama_penerbit']) ?></td>
                                     <td><?= htmlspecialchars($row['nama_kategori']) ?></td>
                                     <td><?= htmlspecialchars($row['tahun_terbit']) ?></td>
-                                    <td><span class="badge bg-info text-dark"><?= htmlspecialchars($row['jumlah']) ?></span></td>
+                                    <td><span class="badge bg-info text-dark"><?= htmlspecialchars($row['jumlah_tersedia']) ?>/<?= htmlspecialchars($row['jumlah_total']) ?></span></td>
                                     <td>
                                         <a href="index.php?page=buku/edit&id=<?= $row['id_buku'] ?>" class="btn btn-warning btn-sm me-1" title="Edit">
                                             <i class="fas fa-edit"></i>

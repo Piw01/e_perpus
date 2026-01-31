@@ -71,7 +71,7 @@
                                     </td>
                                     <td><small><?= htmlspecialchars($pjm['admin_nama']) ?></small></td>
                                     <td>
-                                        <a href="index.php?page=peminjaman/detail&id=<?= $pjm['id_peminjaman'] ?>" 
+                                        <a href="index.php?page=pengembalian/index&kode=<?= $pjm['kode_peminjaman'] ?>" 
                                            class="btn btn-sm btn-info">
                                             <i class="fas fa-eye"></i>
                                         </a>

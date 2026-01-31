@@ -25,6 +25,7 @@ class BukuModel {
         $stmt->execute();
         return $stmt;
     }
+
     /**
      * READ - Ambil satu buku berdasarkan ID
      */
@@ -44,76 +45,66 @@ class BukuModel {
      */
     public function create($data) {
         $query = "INSERT INTO " . $this->table_name . " 
-                  (isbn, judul, id_penulis, id_penerbit, id_kategori, tahun_terbit, sinopsis, jumlah, foto_sampul) 
-                  VALUES (:isbn, :judul, :id_penulis, :id_penerbit, :id_kategori, :tahun_terbit, :sinopsis, :jumlah, :foto_sampul)";
-        
-        $stmt = $this->conn->prepare($query);
-        
-        $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn']));
-        $judul_sanitized = htmlspecialchars(strip_tags($data['judul']));
-        
-        $stmt->bindParam(':isbn', $isbn_sanitized);
-        $stmt->bindParam(':judul', $judul_sanitized);
-        $stmt->bindParam(':id_penulis', $data['id_penulis']);
-        $stmt->bindParam(':id_penerbit', $data['id_penerbit']);
-        $stmt->bindParam(':id_kategori', $data['id_kategori']);
-        $stmt->bindParam(':tahun_terbit', $data['tahun_terbit']);
-        $stmt->bindParam(':sinopsis', $data['sinopsis']);
-        $stmt->bindParam(':jumlah', $data['jumlah']);
-        $stmt->bindParam(':foto_sampul', $data['foto_sampul']);
-        
-        
-        $query = "INSERT INTO " . $this->table_name . " 
-                  (id_buku, isbn, judul, id_penulis, id_penerbit, id_kategori, tahun_terbit, sinopsis, jumlah, foto_sampul) 
-                  VALUES (:id_buku, :isbn, :judul, :id_penulis, :id_penerbit, :id_kategori, :tahun_terbit, :sinopsis, :jumlah, :foto_sampul)";
-        $stmt->bindParam(':id_buku', $data['id_buku']);
-        
-        
-        if ($stmt->execute()) {
-            return true;
-        }
-        return false;
+                (isbn, judul, id_penulis, id_penerbit, id_kategori, tahun_terbit, sinopsis, 
+                jumlah_total, jumlah_tersedia, foto_sampul) 
+                VALUES (:isbn, :judul, :id_penulis, :id_penerbit, :id_kategori, :tahun_terbit, 
+                        :sinopsis, :jumlah, :jumlah, :foto_sampul)";
+    
+    $stmt = $this->conn->prepare($query);
+    
+    $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn']));
+    $judul_sanitized = htmlspecialchars(strip_tags($data['judul']));
+    
+    $stmt->bindParam(':isbn', $isbn_sanitized);
+    $stmt->bindParam(':judul', $judul_sanitized);
+    $stmt->bindParam(':id_penulis', $data['id_penulis']);
+    $stmt->bindParam(':id_penerbit', $data['id_penerbit']);
+    $stmt->bindParam(':id_kategori', $data['id_kategori']);
+    $stmt->bindParam(':tahun_terbit', $data['tahun_terbit']);
+    $stmt->bindParam(':sinopsis', $data['sinopsis']);
+    $stmt->bindParam(':jumlah', $data['jumlah']);
+    $stmt->bindParam(':foto_sampul', $data['foto_sampul']);
+    
+    return $stmt->execute();
     }
     
     /**
      * UPDATE - Perbarui buku
      */
     public function update($id_buku, $data) {
-        $query = "UPDATE " . $this->table_name . " SET 
-                  isbn = :isbn, 
-                  judul = :judul, 
-                  id_penulis = :id_penulis, 
-                  id_penerbit = :id_penerbit, 
-                  id_kategori = :id_kategori, 
-                  tahun_terbit = :tahun_terbit, 
-                  sinopsis = :sinopsis, 
-                  jumlah = :jumlah" .
-                  (!empty($data['foto_sampul']) ? ", foto_sampul = :foto_sampul" : "") .
-                  " WHERE id_buku = :id_buku";
-        
-        $stmt = $this->conn->prepare($query);
-        
-        $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn']));
-        $judul_sanitized = htmlspecialchars(strip_tags($data['judul']));
-        
-        $stmt->bindParam(':id_buku', $id_buku);
-        $stmt->bindParam(':isbn', $isbn_sanitized);
-        $stmt->bindParam(':judul', $judul_sanitized);
-        $stmt->bindParam(':id_penulis', $data['id_penulis']);
-        $stmt->bindParam(':id_penerbit', $data['id_penerbit']);
-        $stmt->bindParam(':id_kategori', $data['id_kategori']);
-        $stmt->bindParam(':tahun_terbit', $data['tahun_terbit']);
-        $stmt->bindParam(':sinopsis', $data['sinopsis']);
-        $stmt->bindParam(':jumlah', $data['jumlah']);
-        
-        if (!empty($data['foto_sampul'])) {
-            $stmt->bindParam(':foto_sampul', $data['foto_sampul']);
-        }
-        
-        if ($stmt->execute()) {
-            return true;
-        }
-        return false;
+    $query = "UPDATE " . $this->table_name . " SET 
+              isbn = :isbn, 
+              judul = :judul, 
+              id_penulis = :id_penulis, 
+              id_penerbit = :id_penerbit, 
+              id_kategori = :id_kategori, 
+              tahun_terbit = :tahun_terbit, 
+              sinopsis = :sinopsis, 
+              jumlah_total = :jumlah, 
+              jumlah_tersedia = :jumlah" .
+              (!empty($data['foto_sampul']) ? ", foto_sampul = :foto_sampul" : "") .
+              " WHERE id_buku = :id_buku";
+    
+    $stmt = $this->conn->prepare($query);
+    
+    $isbn_sanitized = htmlspecialchars(strip_tags($data['isbn']));
+    $judul_sanitized = htmlspecialchars(strip_tags($data['judul']));
+    
+    $stmt->bindParam(':id_buku', $id_buku);
+    $stmt->bindParam(':isbn', $isbn_sanitized);
+    $stmt->bindParam(':judul', $judul_sanitized);
+    $stmt->bindParam(':id_penulis', $data['id_penulis']);
+    $stmt->bindParam(':id_penerbit', $data['id_penerbit']);
+    $stmt->bindParam(':id_kategori', $data['id_kategori']);
+    $stmt->bindParam(':tahun_terbit', $data['tahun_terbit']);
+    $stmt->bindParam(':sinopsis', $data['sinopsis']);
+    $stmt->bindParam(':jumlah', $data['jumlah']);
+    
+    if (!empty($data['foto_sampul'])) {
+        $stmt->bindParam(':foto_sampul', $data['foto_sampul']);
+    }
+    
+    return $stmt->execute();
     }
 
     /**
