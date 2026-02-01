@@ -53,8 +53,11 @@ class PengembalianController {
         $setting = $this->peminjamanModel->getSetting();
         $tgl_harus_kembali = new DateTime($peminjaman['tanggal_harus_kembali']);
         $tgl_dikembalikan = new DateTime($tanggal_kembali);
-        $keterlambatan = max(0, $tgl_dikembalikan->diff($tgl_harus_kembali)->days);
-        
+        if ($tgl_dikembalikan > $tgl_harus_kembali) {
+            $keterlambatan = $tgl_dikembalikan->diff($tgl_harus_kembali)->days;
+        } else {
+            $keterlambatan = 0;
+        }
         $denda_keterlambatan = ($keterlambatan > 0 && $tgl_dikembalikan > $tgl_harus_kembali) 
             ? $keterlambatan * $setting['denda_per_hari'] 
             : 0;

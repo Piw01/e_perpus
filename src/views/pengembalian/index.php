@@ -64,7 +64,8 @@
                                                 ❌ Hilang: Rp <?= number_format($kmb['denda_kehilangan']) ?>
                                             <?php endif; ?>
                                         </small>
-                                    </td>                                    <td>
+                                    </td>                                    
+                                    <td>
                                         <?php if ($kmb['status_bayar'] == 'lunas'): ?>
                                             <span class="badge bg-success">Lunas</span>
                                         <?php elseif ($kmb['status_bayar'] == 'dicicil'): ?>

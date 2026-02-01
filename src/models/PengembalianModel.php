@@ -52,20 +52,51 @@ class PengembalianModel {
         return $stmt->execute();
     }
 
-    public function bayarDenda($id, $jumlah) {
-        $query = "UPDATE {$this->table} 
-                  SET jumlah_dibayar = jumlah_dibayar + :jumlah,
-                      sisa_denda = total_denda - (jumlah_dibayar + :jumlah),
-                      status_bayar = CASE 
-                          WHEN (jumlah_dibayar + :jumlah) >= total_denda THEN 'lunas'
-                          WHEN (jumlah_dibayar + :jumlah) > 0 THEN 'dicicil'
-                          ELSE 'belum_lunas'
-                      END
-                  WHERE id_pengembalian = :id";
-        
+    public function bayarDenda($id, $jumlah)
+    {
+        $query = "SELECT jumlah_dibayar, sisa_denda 
+                FROM {$this->table}
+                WHERE id_pengembalian = :id";
+
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':jumlah', $jumlah);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$data) {
+            return false;
+        }
+
+        $dibayar_lama = $data['jumlah_dibayar'];
+        $sisa_lama    = $data['sisa_denda'];
+
+        $dibayar_baru = $dibayar_lama + $jumlah;
+        $sisa_baru    = $sisa_lama - $jumlah;
+
+        if ($sisa_baru < 0) {
+            return false;
+        }
+
+        if ($sisa_baru == 0) {
+            $status = 'lunas';
+        } else {
+            $status = 'dicicil';
+        }
+
+        $update = "UPDATE {$this->table}
+                SET jumlah_dibayar = :dibayar,
+                    sisa_denda = :sisa,
+                    status_bayar = :status
+                WHERE id_pengembalian = :id";
+
+        $stmt = $this->conn->prepare($update);
+
+        $stmt->bindParam(':dibayar', $dibayar_baru);
+        $stmt->bindParam(':sisa', $sisa_baru);
+        $stmt->bindParam(':status', $status);
+        $stmt->bindParam(':id', $id);
+
         return $stmt->execute();
     }
 
