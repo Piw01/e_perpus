@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Prosedur
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_hitung_denda` (IN `p_id_peminjaman` INT, IN `p_tanggal_kembali` DATE, OUT `p_keterlambatan` INT, OUT `p_total_denda` INT)   BEGIN
+CREATE PROCEDURE `sp_hitung_denda` (IN `p_id_peminjaman` INT, IN `p_tanggal_kembali` DATE, OUT `p_keterlambatan` INT, OUT `p_total_denda` INT)   BEGIN
     DECLARE v_tanggal_harus_kembali DATE;
     DECLARE v_denda_per_hari INT;
     
@@ -556,7 +556,7 @@ CREATE TABLE `v_statistik_dashboard` (
 --
 DROP TABLE IF EXISTS `v_buku_lengkap`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_buku_lengkap`  AS SELECT `b`.`id_buku` AS `id_buku`, `b`.`isbn` AS `isbn`, `b`.`judul` AS `judul`, `p`.`nama_penulis` AS `nama_penulis`, `pen`.`nama_penerbit` AS `nama_penerbit`, `k`.`nama_kategori` AS `nama_kategori`, `b`.`tahun_terbit` AS `tahun_terbit`, `b`.`jumlah_total` AS `jumlah_total`, `b`.`jumlah_tersedia` AS `jumlah_tersedia`, `b`.`lokasi_rak` AS `lokasi_rak`, `b`.`foto_sampul` AS `foto_sampul`, `b`.`status` AS `status`, `b`.`rating` AS `rating` FROM (((`buku` `b` left join `penulis` `p` on(`b`.`id_penulis` = `p`.`id_penulis`)) left join `penerbit` `pen` on(`b`.`id_penerbit` = `pen`.`id_penerbit`)) left join `kategori` `k` on(`b`.`id_kategori` = `k`.`id_kategori`)) ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `v_buku_lengkap`  AS SELECT `b`.`id_buku` AS `id_buku`, `b`.`isbn` AS `isbn`, `b`.`judul` AS `judul`, `p`.`nama_penulis` AS `nama_penulis`, `pen`.`nama_penerbit` AS `nama_penerbit`, `k`.`nama_kategori` AS `nama_kategori`, `b`.`tahun_terbit` AS `tahun_terbit`, `b`.`jumlah_total` AS `jumlah_total`, `b`.`jumlah_tersedia` AS `jumlah_tersedia`, `b`.`lokasi_rak` AS `lokasi_rak`, `b`.`foto_sampul` AS `foto_sampul`, `b`.`status` AS `status`, `b`.`rating` AS `rating` FROM (((`buku` `b` left join `penulis` `p` on(`b`.`id_penulis` = `p`.`id_penulis`)) left join `penerbit` `pen` on(`b`.`id_penerbit` = `pen`.`id_penerbit`)) left join `kategori` `k` on(`b`.`id_kategori` = `k`.`id_kategori`)) ;
 
 -- --------------------------------------------------------
 
@@ -565,7 +565,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_peminjaman_aktif`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_peminjaman_aktif`  AS SELECT `p`.`kode_peminjaman` AS `kode_peminjaman`, `a`.`no_anggota` AS `no_anggota`, `a`.`nama_lengkap` AS `nama_lengkap`, `p`.`tanggal_pinjam` AS `tanggal_pinjam`, `p`.`tanggal_harus_kembali` AS `tanggal_harus_kembali`, `p`.`total_buku` AS `total_buku`, `p`.`status_pinjam` AS `status_pinjam`, to_days(curdate()) - to_days(`p`.`tanggal_harus_kembali`) AS `hari_terlambat`, `adm`.`username` AS `admin_nama` FROM ((`peminjaman` `p` join `anggota` `a` on(`p`.`id_anggota` = `a`.`id_anggota`)) join `admin` `adm` on(`p`.`id_admin` = `adm`.`id_admin`)) WHERE `p`.`status_pinjam` = 'dipinjam' ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `v_peminjaman_aktif`  AS SELECT `p`.`kode_peminjaman` AS `kode_peminjaman`, `a`.`no_anggota` AS `no_anggota`, `a`.`nama_lengkap` AS `nama_lengkap`, `p`.`tanggal_pinjam` AS `tanggal_pinjam`, `p`.`tanggal_harus_kembali` AS `tanggal_harus_kembali`, `p`.`total_buku` AS `total_buku`, `p`.`status_pinjam` AS `status_pinjam`, to_days(curdate()) - to_days(`p`.`tanggal_harus_kembali`) AS `hari_terlambat`, `adm`.`username` AS `admin_nama` FROM ((`peminjaman` `p` join `anggota` `a` on(`p`.`id_anggota` = `a`.`id_anggota`)) join `admin` `adm` on(`p`.`id_admin` = `adm`.`id_admin`)) WHERE `p`.`status_pinjam` = 'dipinjam' ;
 
 -- --------------------------------------------------------
 
@@ -574,7 +574,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_statistik_dashboard`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_statistik_dashboard`  AS SELECT (select count(0) from `buku` where `buku`.`status` = 'tersedia') AS `total_buku`, (select count(0) from `anggota` where `anggota`.`status_anggota` = 'aktif') AS `total_anggota_aktif`, (select count(0) from `peminjaman` where `peminjaman`.`status_pinjam` = 'dipinjam') AS `total_buku_dipinjam`, (select count(0) from `peminjaman` where `peminjaman`.`status_pinjam` = 'terlambat') AS `total_terlambat`, (select coalesce(sum(`pengembalian`.`sisa_denda`),0) from `pengembalian` where `pengembalian`.`status_bayar` <> 'lunas') AS `total_denda_belum_lunas` ;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `v_statistik_dashboard`  AS SELECT (select count(0) from `buku` where `buku`.`status` = 'tersedia') AS `total_buku`, (select count(0) from `anggota` where `anggota`.`status_anggota` = 'aktif') AS `total_anggota_aktif`, (select count(0) from `peminjaman` where `peminjaman`.`status_pinjam` = 'dipinjam') AS `total_buku_dipinjam`, (select count(0) from `peminjaman` where `peminjaman`.`status_pinjam` = 'terlambat') AS `total_terlambat`, (select coalesce(sum(`pengembalian`.`sisa_denda`),0) from `pengembalian` where `pengembalian`.`status_bayar` <> 'lunas') AS `total_denda_belum_lunas` ;
 
 --
 -- Indexes for dumped tables
