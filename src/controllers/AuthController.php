@@ -1,4 +1,8 @@
 <?php
+/**
+ * AuthController - Handle Login & Logout
+ * PENTING: Logout admin dan anggota DIPISAH!
+ */
 class AuthController {
     private $adminModel;
     private $anggotaModel;
@@ -16,7 +20,9 @@ class AuthController {
         $this->anggotaModel = new AnggotaModel($db);
     }
     
+    // ========================================
     // ADMIN LOGIN
+    // ========================================
     public function login() {
         if (isset($_SESSION['user_id'])) {
             header("Location: index.php?page=dashboard/index");
@@ -37,7 +43,7 @@ class AuthController {
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
                 $_SESSION['level'] = $user['level'];
-                $_SESSION['user_type'] = 'admin';
+                $_SESSION['user_type'] = 'admin'; // PENTING!
                 
                 header("Location: index.php?page=dashboard/index");
                 exit();
@@ -52,7 +58,9 @@ class AuthController {
         }
     }
 
+    // ========================================
     // ANGGOTA LOGIN
+    // ========================================
     public function loginAnggota() {
         if (isset($_SESSION['anggota_id'])) {
             header("Location: index.php?page=anggota/dashboard");
@@ -72,7 +80,7 @@ class AuthController {
                 $_SESSION['anggota_id'] = $anggota['id_anggota'];
                 $_SESSION['anggota_username'] = $anggota['username'];
                 $_SESSION['anggota_nama'] = $anggota['nama_lengkap'];
-                $_SESSION['user_type'] = 'anggota';
+                $_SESSION['user_type'] = 'anggota'; // PENTING!
                 
                 header("Location: index.php?page=anggota/dashboard");
                 exit();
@@ -87,11 +95,37 @@ class AuthController {
         }
     }
     
-    // LOGOUT (untuk Admin & Anggota)
+    // ========================================
+    // LOGOUT - UNIVERSAL (DETEKSI USER TYPE)
+    // ========================================
     public function logout() {
+        // CEK: Siapa yang logout?
+        $redirect_to = 'index.php?page=katalog/index'; // Default: ke katalog publik
+        
+        if (isset($_SESSION['user_type'])) {
+            if ($_SESSION['user_type'] == 'admin') {
+                // Logout ADMIN
+                unset($_SESSION['user_id']);
+                unset($_SESSION['username']);
+                unset($_SESSION['nama_lengkap']);
+                unset($_SESSION['level']);
+                $redirect_to = 'index.php?page=auth/login'; // Redirect admin ke login admin
+            } 
+            elseif ($_SESSION['user_type'] == 'anggota') {
+                // Logout ANGGOTA
+                unset($_SESSION['anggota_id']);
+                unset($_SESSION['anggota_username']);
+                unset($_SESSION['anggota_nama']);
+                $redirect_to = 'index.php?page=katalog/index'; // Redirect anggota ke katalog
+            }
+            unset($_SESSION['user_type']);
+        }
+        
+        // Destroy session
         session_unset();
         session_destroy();
-        header("Location: index.php?page=katalog/index");
+        
+        header("Location: $redirect_to");
         exit();
     }
 }

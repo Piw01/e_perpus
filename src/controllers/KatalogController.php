@@ -1,4 +1,8 @@
 <?php
+/**
+ * KatalogController - OPAC (Online Public Access Catalog)
+ * Halaman publik untuk browsing buku
+ */
 require_once ROOT_PATH . 'src/models/BukuModel.php';
 require_once ROOT_PATH . 'src/models/KategoriModel.php';
 require_once ROOT_PATH . 'src/config/Database.php';
@@ -14,7 +18,9 @@ class KatalogController {
         $this->kategoriModel = new KategoriModel($db);
     }
 
-    // OPAC - Halaman publik pencarian buku
+    // ========================================
+    // OPAC - Halaman Utama Katalog Publik
+    // ========================================
     public function index() {
         $search = $_GET['search'] ?? '';
         $kategori_filter = $_GET['kategori'] ?? '';
@@ -33,7 +39,9 @@ class KatalogController {
         require_once ROOT_PATH . 'src/views/katalog/index.php';
     }
 
-    // Detail buku publik
+    // ========================================
+    // Detail Buku Publik
+    // ========================================
     public function detail() {
         $id_buku = $_GET['id'] ?? null;
         if (!$id_buku) {
@@ -49,6 +57,29 @@ class KatalogController {
         }
 
         require_once ROOT_PATH . 'src/views/katalog/detail.php';
+    }
+    
+    // ========================================
+    // Search API Endpoint (AJAX)
+    // ========================================
+    public function search() {
+        header('Content-Type: application/json');
+        $keyword = $_GET['q'] ?? '';
+        
+        if (empty($keyword)) {
+            echo json_encode(['success' => false, 'message' => 'Keyword kosong']);
+            exit();
+        }
+        
+        $stmt = $this->bukuModel->search($keyword);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        echo json_encode([
+            'success' => true,
+            'data' => $results,
+            'count' => count($results)
+        ]);
+        exit();
     }
 }
 ?>

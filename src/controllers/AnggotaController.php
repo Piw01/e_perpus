@@ -1,4 +1,7 @@
 <?php
+/**
+ * AnggotaController - Handle Member Registration & Dashboard
+ */
 require_once ROOT_PATH . 'src/models/AnggotaModel.php';
 require_once ROOT_PATH . 'src/config/Database.php';
 
@@ -11,19 +14,16 @@ class AnggotaController {
         $this->model = new AnggotaModel($db);
     }
 
-    // ADMIN: Lihat daftar anggota
-    public function index() {
-        $stmt = $this->model->readAll();
-        $data_anggota = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        require_once ROOT_PATH . 'src/views/anggota/index.php';
-    }
-
-    // PUBLIC: Form registrasi
+    // ========================================
+    // PUBLIC: Form Registrasi
+    // ========================================
     public function register() {
         require_once ROOT_PATH . 'src/views/anggota/register.php';
     }
 
-    // PUBLIC: Proses registrasi
+    // ========================================
+    // PUBLIC: Proses Registrasi
+    // ========================================
     public function doRegister() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("Location: index.php?page=anggota/register");
@@ -112,7 +112,9 @@ class AnggotaController {
         }
     }
 
-    // MEMBER: Dashboard profil
+    // ========================================
+    // MEMBER: Dashboard Profil
+    // ========================================
     public function dashboard() {
         if (!isset($_SESSION['anggota_id'])) {
             header("Location: index.php?page=auth/loginAnggota");
@@ -123,7 +125,18 @@ class AnggotaController {
         require_once ROOT_PATH . 'src/views/anggota/dashboard.php';
     }
 
-    // ADMIN: Delete anggota
+    // ========================================
+    // ADMIN: List Semua Anggota
+    // ========================================
+    public function index() {
+        $stmt = $this->model->readAll();
+        $data_anggota = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        require_once ROOT_PATH . 'src/views/anggota/index.php';
+    }
+
+    // ========================================
+    // ADMIN: Delete Anggota
+    // ========================================
     public function delete() {
         if (!isset($_SESSION['level']) || $_SESSION['level'] == 3) {
             $_SESSION['error_message'] = "Akses ditolak.";
