@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Buku | E-Perpus Subang</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-book-reader me-2"></i><strong>E-Perpus Subang</strong>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Katalog</a>
+                </li>
+
+                <!-- Mode Belum Login -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Daftar</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Login Anggota</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="btn btn-sm btn-warning ms-2" href="#">Login Admin</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Hero Section -->
+<div class="bg-light py-5">
+    <div class="container">
+
+        <h1 class="display-5 text-center mb-4">
+            <i class="fas fa-search me-2"></i> Cari Buku Favorit Anda
+        </h1>
+
+        <form>
+
+            <div class="row g-2">
+
+                <div class="col-md-8">
+                    <input type="text"
+                           class="form-control form-control-lg"
+                           placeholder="Cari berdasarkan judul, penulis, atau ISBN...">
+                </div>
+
+                <div class="col-md-2">
+                    <select class="form-select form-select-lg">
+
+                        <option value="">Semua Kategori</option>
+                        <option>Teknologi</option>
+                        <option>Pendidikan</option>
+                        <option>Novel</option>
+                        <option>Sejarah</option>
+
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="fas fa-search"></i> Cari
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<!-- Daftar Buku -->
+<div class="container my-5">
+
+    <h3 class="mb-4">Daftar Buku Tersedia (4)</h3>
+
+
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+
+        <!-- Buku 1 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+
+                <img src="https://via.placeholder.com/300x400"
+                     class="card-img-top"
+                     style="height: 250px; object-fit: cover;"
+                     alt="Sampul">
+
+                <div class="card-body">
+
+                    <h6 class="card-title">Pemrograman Web</h6>
+
+                    <p class="card-text text-muted small mb-1">
+                        <i class="fas fa-user"></i> Andi Pratama
+                    </p>
+
+                    <p class="card-text text-muted small mb-2">
+                        <i class="fas fa-tag"></i> Teknologi
+                    </p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="badge bg-success">
+                            Tersedia (5)
+                        </span>
+
+                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Buku 2 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+
+                <img src="https://via.placeholder.com/300x400"
+                     class="card-img-top"
+                     style="height: 250px; object-fit: cover;"
+                     alt="Sampul">
+
+                <div class="card-body">
+
+                    <h6 class="card-title">Belajar Database</h6>
+
+                    <p class="card-text text-muted small mb-1">
+                        <i class="fas fa-user"></i> Budi Santoso
+                    </p>
+
+                    <p class="card-text text-muted small mb-2">
+                        <i class="fas fa-tag"></i> Teknologi
+                    </p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="badge bg-danger">
+                            Habis
+                        </span>
+
+                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Buku 3 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+
+                <img src="https://via.placeholder.com/300x400"
+                     class="card-img-top"
+                     style="height: 250px; object-fit: cover;"
+                     alt="Sampul">
+
+                <div class="card-body">
+
+                    <h6 class="card-title">Sejarah Nusantara</h6>
+
+                    <p class="card-text text-muted small mb-1">
+                        <i class="fas fa-user"></i> Siti Aminah
+                    </p>
+
+                    <p class="card-text text-muted small mb-2">
+                        <i class="fas fa-tag"></i> Sejarah
+                    </p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="badge bg-success">
+                            Tersedia (3)
+                        </span>
+
+                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Buku 4 -->
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+
+                <img src="https://via.placeholder.com/300x400"
+                     class="card-img-top"
+                     style="height: 250px; object-fit: cover;"
+                     alt="Sampul">
+
+                <div class="card-body">
+
+                    <h6 class="card-title">Novel Cinta Senja</h6>
+
+                    <p class="card-text text-muted small mb-1">
+                        <i class="fas fa-user"></i> Rina Putri
+                    </p>
+
+                    <p class="card-text text-muted small mb-2">
+                        <i class="fas fa-tag"></i> Novel
+                    </p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="badge bg-success">
+                            Tersedia (7)
+                        </span>
+
+                        <a href="#" class="btn btn-sm btn-primary">Detail</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-4 mt-5">
+
+    <p class="mb-0">
+        E-Perpus Subang &copy; 2026 |
+        <a href="#" class="text-white">eperpussbg.my.id</a>
+    </p>
+
+</footer>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
