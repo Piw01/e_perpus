@@ -19,10 +19,8 @@
                 </div>
                 <div class="card-body p-4">
 
-                    <!-- Alert Container -->
                     <div id="alertContainer"></div>
 
-                    <!-- Form -->
                     <form id="loginForm">
                         <div class="mb-3">
                             <label for="username" class="form-label">Username</label>
@@ -60,12 +58,10 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
-// Configuration
-const API_BASE = window.location.origin + '/public/api';
+// FIX: Path API yang benar
+const API_BASE = window.location.origin + '/e_perpus/public/api';
 
-// Show Alert
 function showAlert(message, type = 'danger') {
     const alertContainer = document.getElementById('alertContainer');
     alertContainer.innerHTML = `
@@ -76,7 +72,6 @@ function showAlert(message, type = 'danger') {
     `;
 }
 
-// Handle Login Form
 document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -84,12 +79,14 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    // Disable button
     loginBtn.disabled = true;
     loginBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Memproses...';
 
     try {
-        const response = await fetch(`${API_BASE}/apiLoginAnggota.php`, {
+        const url = `${API_BASE}/apiLoginAnggota.php`;
+        console.log('Login URL:', url); // Debug
+        
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -97,16 +94,18 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             body: JSON.stringify({ username, password })
         });
 
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+
         const data = await response.json();
 
         if (data.success) {
-            // Save token to localStorage
             localStorage.setItem('anggota_token', data.data.token);
             localStorage.setItem('anggota_data', JSON.stringify(data.data));
 
             showAlert('Login berhasil! Mengalihkan...', 'success');
             
-            // Redirect to dashboard
             setTimeout(() => {
                 window.location.href = 'anggotaDashboard.html';
             }, 1000);
@@ -117,7 +116,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         }
     } catch (error) {
         console.error('Error:', error);
-        showAlert('Terjadi kesalahan. Coba lagi.');
+        showAlert(`Terjadi kesalahan: ${error.message}<br><small>Pastikan XAMPP running dan API endpoint benar</small>`);
         loginBtn.disabled = false;
         loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
     }
