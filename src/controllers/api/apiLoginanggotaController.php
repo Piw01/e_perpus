@@ -4,6 +4,7 @@
  */
 
 header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
 
 require_once __DIR__ . '/../../models/AnggotaModel.php';
 
@@ -57,7 +58,7 @@ class ApiLoginAnggotaController {
                 return;
             }
 
-            // Generate simple token (you can use JWT library for production)
+            // Generate simple token
             $token = $this->generateToken($anggota['id_anggota'], $anggota['username']);
 
             // Response
@@ -72,6 +73,8 @@ class ApiLoginAnggotaController {
                     'no_hp' => $anggota['no_hp'],
                     'status_anggota' => $anggota['status_anggota'],
                     'tanggal_expired' => $anggota['tanggal_expired'],
+                    'total_pinjam' => $anggota['total_pinjam'],
+                    'denda_aktif' => $anggota['denda_aktif'],
                     'token' => $token
                 ]
             ]);
@@ -88,7 +91,6 @@ class ApiLoginAnggotaController {
 
     /**
      * Generate simple token (base64 encoded)
-     * For production, use JWT library like firebase/php-jwt
      */
     private function generateToken($id_anggota, $username) {
         $data = [

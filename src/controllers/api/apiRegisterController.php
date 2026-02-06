@@ -4,6 +4,7 @@
  */
 
 header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
 
 require_once __DIR__ . '/../../models/AnggotaModel.php';
 
@@ -102,7 +103,9 @@ class ApiRegisterController {
                     'success' => true,
                     'message' => 'Registrasi berhasil! Silakan login dengan akun Anda.',
                     'data' => [
-                        'no_anggota' => $no_anggota
+                        'no_anggota' => $no_anggota,
+                        'nama_lengkap' => $input['nama_lengkap'],
+                        'email' => $input['email']
                     ]
                 ]);
             } else {

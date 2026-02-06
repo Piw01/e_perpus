@@ -1,9 +1,11 @@
 <?php
 /**
  * ApiAnggotaDashboardController - Handle API dashboard anggota (protected)
+ * Menampilkan: Profil, Statistik, Riwayat Peminjaman, Reservasi Aktif
  */
 
 header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
 
 require_once __DIR__ . '/../../models/AnggotaModel.php';
 require_once __DIR__ . '/../../models/PeminjamanModel.php';
@@ -24,7 +26,7 @@ class ApiAnggotaDashboardController {
     }
 
     /**
-     * GET Dashboard Data (Protected)
+     * GET Dashboard Data (Protected - butuh token)
      */
     public function getDashboard() {
         // Get token from header
@@ -73,12 +75,13 @@ class ApiAnggotaDashboardController {
             // Remove password dari response
             unset($anggota['password']);
 
-            // Get riwayat peminjaman
+            // Get riwayat peminjaman (10 terakhir)
             $query_peminjaman = "SELECT p.*, 
                                  DATE_FORMAT(p.tanggal_pinjam, '%d-%m-%Y') as tgl_pinjam_formatted,
                                  DATE_FORMAT(p.tanggal_harus_kembali, '%d-%m-%Y') as tgl_harus_kembali_formatted,
                                  DATE_FORMAT(p.tanggal_kembali, '%d-%m-%Y') as tgl_kembali_formatted,
-                                 DATEDIFF(CURDATE(), p.tanggal_harus_kembali) as hari_terlambat
+                                 DATEDIFF(CURDATE(), p.tanggal_harus_kembali) as hari_terlambat,
+                                 (SELECT COUNT(*) FROM detail_peminjaman dp WHERE dp.id_peminjaman = p.id_peminjaman) as jumlah_buku
                           FROM peminjaman p
                           WHERE p.id_anggota = :id_anggota
                           ORDER BY p.tanggal_pinjam DESC
@@ -89,9 +92,27 @@ class ApiAnggotaDashboardController {
             $stmt_pinjam->execute();
             $riwayat_pinjam = $stmt_pinjam->fetchAll(PDO::FETCH_ASSOC);
 
-            // Get reservasi aktif
+            // Get detail buku untuk setiap peminjaman
+            foreach ($riwayat_pinjam as &$pjm) {
+                $query_detail = "SELECT b.judul, b.isbn, b.foto_sampul 
+                                 FROM detail_peminjaman dp
+                                 JOIN buku b ON dp.id_buku = b.id_buku
+                                 WHERE dp.id_peminjaman = :id_peminjaman";
+                $stmt_detail = $this->db->prepare($query_detail);
+                $stmt_detail->bindParam(':id_peminjaman', $pjm['id_peminjaman']);
+                $stmt_detail->execute();
+                $pjm['buku_detail'] = $stmt_detail->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+            // Get reservasi aktif (pending + belum expired)
             $stmt_reservasi = $this->reservasiModel->readByAnggota($id_anggota);
             $reservasi_aktif = $stmt_reservasi->fetchAll(PDO::FETCH_ASSOC);
+            
+            // Filter hanya yang pending
+            $reservasi_aktif = array_filter($reservasi_aktif, function($r) {
+                return $r['status'] == 'pending' && strtotime($r['tanggal_expired']) > time();
+            });
+            $reservasi_aktif = array_values($reservasi_aktif);
 
             // Build response
             echo json_encode([

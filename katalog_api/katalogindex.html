@@ -15,9 +15,7 @@
         <a class="navbar-brand" href="katalogindex.html">
             <i class="fas fa-book-reader me-2"></i><strong>E-Perpus Subang</strong>
         </a>
-        <div class="ms-auto" id="navButtons">
-            <!-- Will be populated by JS -->
-        </div>
+        <div class="ms-auto" id="navButtons"></div>
     </div>
 </nav>
 
@@ -53,10 +51,11 @@
     <h3 class="mb-4">Daftar Buku Tersedia (<span id="totalBuku">0</span>)</h3>
     
     <!-- Loading -->
-    <div id="loadingIndicator" class="text-center py-5">
+    <div id="loadingIndicator" class="text-center py-5" style="display:none;">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
+        <p class="mt-2">Memuat data...</p>
     </div>
 
     <!-- Book Grid -->
@@ -75,25 +74,26 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-// ========================================
-// Configuration - FIX: Path ke API
-// ========================================
+// Configuration
 const API_BASE = window.location.origin + '/e_perpus/public/api';
+const IMG_BASE = window.location.origin + '/e_perpus/public/assets/img/sampul_buku';
 let currentPage = 1;
 let currentSearch = '';
 let currentKategori = '';
 
-// ========================================
 // Check Login Status
-// ========================================
 function checkLoginStatus() {
     const token = localStorage.getItem('anggota_token');
     const navButtons = document.getElementById('navButtons');
     
     if (token) {
         navButtons.innerHTML = `
-            <a href="anggotaDashboard.html" class="btn btn-sm btn-outline-light me-2">Dashboard</a>
-            <button onclick="logout()" class="btn btn-sm btn-danger">Logout</button>
+            <a href="anggotaDashboard.html" class="btn btn-sm btn-outline-light me-2">
+                <i class="fas fa-user"></i> Dashboard
+            </a>
+            <button onclick="logout()" class="btn btn-sm btn-danger">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         `;
     } else {
         navButtons.innerHTML = `
@@ -111,9 +111,7 @@ function logout() {
     checkLoginStatus();
 }
 
-// ========================================
 // Fetch Buku dari API
-// ========================================
 async function fetchBuku(page = 1, search = '', kategori = '') {
     const loadingIndicator = document.getElementById('loadingIndicator');
     const bukuContainer = document.getElementById('bukuContainer');
@@ -122,8 +120,8 @@ async function fetchBuku(page = 1, search = '', kategori = '') {
         loadingIndicator.style.display = 'block';
         bukuContainer.innerHTML = '';
 
-        const url = `${API_BASE}/apiKatalog.php?page=${page}&search=${encodeURIComponent(search)}&kategori=${kategori}`;
-        console.log('Fetching:', url); // Debug
+        const url = `${API_BASE}/apiKatalog.php?page=${page}&search=${encodeURIComponent(search)}&kategori=${kategori}&limit=12`;
+        console.log('Fetching:', url);
         
         const response = await fetch(url);
         
@@ -147,7 +145,7 @@ async function fetchBuku(page = 1, search = '', kategori = '') {
             <div class="col-12">
                 <div class="alert alert-danger">
                     <i class="fas fa-exclamation-circle"></i> Gagal memuat data: ${error.message}
-                    <br><small>Pastikan XAMPP running dan path API benar</small>
+                    <br><small>Pastikan XAMPP running dan database tersedia</small>
                 </div>
             </div>
         `;
@@ -156,9 +154,7 @@ async function fetchBuku(page = 1, search = '', kategori = '') {
     }
 }
 
-// ========================================
 // Render Buku Cards
-// ========================================
 function renderBuku(bukuList) {
     const container = document.getElementById('bukuContainer');
     
@@ -181,18 +177,21 @@ function renderBuku(bukuList) {
             ? `<span class="badge bg-success">Tersedia (${buku.jumlah_tersedia})</span>`
             : `<span class="badge bg-danger">Habis</span>`;
 
+        const imgSrc = buku.foto_sampul ? `${IMG_BASE}/${buku.foto_sampul}` : `${IMG_BASE}/default_book.jpg`;
+
         col.innerHTML = `
             <div class="card h-100 shadow-sm">
-                <img src="/e_perpus/public/assets/img/sampul_buku/${buku.foto_sampul || 'default_book.jpg'}" 
+                <img src="${imgSrc}" 
                      class="card-img-top" style="height: 250px; object-fit: cover;" 
-                     alt="${buku.judul}">
+                     alt="${buku.judul}"
+                     onerror="this.src='${IMG_BASE}/default_book.jpg'">
                 <div class="card-body">
                     <h6 class="card-title">${buku.judul}</h6>
                     <p class="card-text text-muted small mb-1">
-                        <i class="fas fa-user"></i> ${buku.nama_penulis}
+                        <i class="fas fa-user"></i> ${buku.nama_penulis || '-'}
                     </p>
                     <p class="card-text text-muted small mb-2">
-                        <i class="fas fa-tag"></i> ${buku.nama_kategori}
+                        <i class="fas fa-tag"></i> ${buku.nama_kategori || '-'}
                     </p>
                     <div class="d-flex justify-content-between align-items-center">
                         ${statusBadge}
@@ -205,9 +204,7 @@ function renderBuku(bukuList) {
     });
 }
 
-// ========================================
 // Render Kategori Dropdown
-// ========================================
 function renderKategori(kategoriList) {
     const select = document.getElementById('kategoriFilter');
     while (select.options.length > 1) select.remove(1);
@@ -221,9 +218,7 @@ function renderKategori(kategoriList) {
     });
 }
 
-// ========================================
 // Render Pagination
-// ========================================
 function renderPagination(pagination) {
     const container = document.getElementById('paginationContainer');
     container.innerHTML = '';
@@ -257,9 +252,7 @@ function changePage(page) {
     window.scrollTo(0, 0);
 }
 
-// ========================================
 // Search Form Handler
-// ========================================
 document.getElementById('searchForm').addEventListener('submit', function(e) {
     e.preventDefault();
     currentSearch = document.getElementById('searchInput').value;
@@ -268,9 +261,7 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
     fetchBuku(currentPage, currentSearch, currentKategori);
 });
 
-// ========================================
 // Initialize
-// ========================================
 document.addEventListener('DOMContentLoaded', function() {
     checkLoginStatus();
     fetchBuku();
