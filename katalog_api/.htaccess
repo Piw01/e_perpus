@@ -1,0 +1,12 @@
+# Redirect root ke katalogindex.html
+DirectoryIndex katalogindex.html index.php index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    
+    # Jika file/folder tidak ada, redirect ke katalogindex.html
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /katalogindex.html [L]
+</IfModule>

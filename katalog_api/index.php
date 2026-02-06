@@ -1,4 +1,4 @@
 <?php
-header("Location: dashboard.html");
+header("Location: katalogindex.html");
 exit();
 ?>

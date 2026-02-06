@@ -3,6 +3,8 @@
  * ApiRegisterController - Handle API registrasi anggota
  */
 
+header('Access-Control-Allow-Origin: *');
+
 require_once __DIR__ . '/../../models/AnggotaModel.php';
 
 class ApiRegisterController {

@@ -3,6 +3,8 @@
  * ApiLoginAnggotaController - Handle API login untuk anggota
  */
 
+header('Access-Control-Allow-Origin: *');
+
 require_once __DIR__ . '/../../models/AnggotaModel.php';
 
 class ApiLoginAnggotaController {

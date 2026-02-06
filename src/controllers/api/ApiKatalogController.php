@@ -3,6 +3,8 @@
  * ApiKatalogController - Handle API requests untuk katalog publik
  */
 
+header('Access-Control-Allow-Origin: *');
+
 require_once __DIR__ . '/../../models/BukuModel.php';
 require_once __DIR__ . '/../../models/KategoriModel.php';
 

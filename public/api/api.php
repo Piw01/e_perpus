@@ -12,11 +12,11 @@
  * - POST /api.php?resource=reservasi     → Buat reservasi baru
  */
 
-require_once __DIR__ . '/../src/config/Database.php';
-require_once __DIR__ . '/../src/models/BukuModel.php';
-require_once __DIR__ . '/../src/models/KategoriModel.php';
-require_once __DIR__ . '/../src/models/AnggotaModel.php';
-require_once __DIR__ . '/../src/models/ReservasiModel.php';
+require_once __DIR__ . '/../../src/config/Database.php';
+require_once __DIR__ . '/../../src/models/BukuModel.php';
+require_once __DIR__ . '/../../src/models/KategoriModel.php';
+require_once __DIR__ . '/../../src/models/AnggotaModel.php';
+require_once __DIR__ . '/../../src/models/ReservasiModel.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');

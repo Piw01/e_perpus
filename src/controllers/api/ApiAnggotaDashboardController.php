@@ -3,6 +3,8 @@
  * ApiAnggotaDashboardController - Handle API dashboard anggota (protected)
  */
 
+header('Access-Control-Allow-Origin: *');
+
 require_once __DIR__ . '/../../models/AnggotaModel.php';
 require_once __DIR__ . '/../../models/PeminjamanModel.php';
 require_once __DIR__ . '/../../models/ReservasiModel.php';

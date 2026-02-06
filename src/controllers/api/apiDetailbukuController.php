@@ -3,6 +3,8 @@
  * ApiDetailBukuController - Handle API requests untuk detail buku
  */
 
+header('Access-Control-Allow-Origin: *');
+
 require_once __DIR__ . '/../../models/BukuModel.php';
 
 class ApiDetailBukuController {
