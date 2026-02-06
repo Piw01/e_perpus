@@ -26,7 +26,7 @@
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=anggota/register">Daftar</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?page=auth/loginAnggota">Login Anggota</a></li>
-                    <li class="nav-item"><a class="btn btn-sm btn-warning ms-2" href="index.php?page=auth/login">Login Admin</a></li>
+                    <!-- BUTTON LOGIN ADMIN DIHAPUS DARI SINI -->
                 <?php endif; ?>
             </ul>
         </div>

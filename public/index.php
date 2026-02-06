@@ -32,12 +32,13 @@ $public_pages = [
     'katalog/index', 'katalog/detail', 'katalog/search',
     'anggota/register', 'anggota/doRegister',
     'auth/loginAnggota', 'auth/doLoginAnggota',
+    'auth/login', 'auth/doLogin',  // PERBAIKAN: Tambahkan auth/login ke public
     'auth/logout'
 ];
 
 // Halaman khusus ADMIN
 $admin_pages = [
-    'auth/login', 'auth/doLogin', 'dashboard/index',
+    'dashboard/index',
     'buku/index', 'buku/create', 'buku/store', 'buku/edit', 'buku/update', 'buku/delete',
     'kategori/index', 'kategori/create', 'kategori/store', 'kategori/edit', 'kategori/update', 'kategori/delete',
     'penulis/index', 'penulis/create', 'penulis/store', 'penulis/edit', 'penulis/update', 'penulis/delete',
@@ -53,7 +54,7 @@ $admin_pages = [
 // Halaman khusus ANGGOTA
 $member_pages = ['anggota/dashboard', 'reservasi/create'];
 
-// PROTEKSI ADMIN PAGES
+// PROTEKSI ADMIN PAGES - PERBAIKAN: Jangan redirect jika sedang di halaman login
 if (in_array($page, $admin_pages) && (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin')) {
     header("Location: index.php?page=auth/login");
     exit();

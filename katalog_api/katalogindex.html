@@ -81,12 +81,13 @@ let currentPage = 1;
 let currentSearch = '';
 let currentKategori = '';
 
-// Check Login Status
+// Check Login Status - PERBAIKAN: Hapus button Login Admin
 function checkLoginStatus() {
     const token = localStorage.getItem('anggota_token');
     const navButtons = document.getElementById('navButtons');
     
     if (token) {
+        // User sudah login sebagai anggota
         navButtons.innerHTML = `
             <a href="anggotaDashboard.html" class="btn btn-sm btn-outline-light me-2">
                 <i class="fas fa-user"></i> Dashboard
@@ -96,11 +97,16 @@ function checkLoginStatus() {
             </button>
         `;
     } else {
+        // User belum login - HANYA tampilkan Daftar dan Login Anggota
         navButtons.innerHTML = `
-            <a href="anggotaregister.html" class="btn btn-sm btn-outline-light me-2">Daftar</a>
-            <a href="loginanggota.html" class="btn btn-sm btn-outline-light me-2">Login Anggota</a>
-            <a href="/e_perpus/index.php?page=auth/login" class="btn btn-sm btn-warning">Login Admin</a>
+            <a href="anggotaregister.html" class="btn btn-sm btn-outline-light me-2">
+                <i class="fas fa-user-plus"></i> Daftar
+            </a>
+            <a href="loginanggota.html" class="btn btn-sm btn-success">
+                <i class="fas fa-sign-in-alt"></i> Login Anggota
+            </a>
         `;
+        // CATATAN: Button "Login Admin" SUDAH DIHAPUS dari sini
     }
 }
 
