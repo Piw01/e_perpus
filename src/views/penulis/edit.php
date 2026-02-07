@@ -21,12 +21,12 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
                         <div class="mb-3">
                             <label for="id_penulis" class="form-label">ID Penulis</label>
                             <input type="text" class="form-control" id="id_penulis" name="id_penulis" 
-                                   value="<?= htmlspecialchars($data_penulis['id_penulis']) ?>" readonly>
+                                   value="<?= htmlspecialchars($data_penulis['id_penulis'] ?? '') ?>" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="nama_penulis" class="form-label">Nama Penulis <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="nama_penulis" name="nama_penulis" 
-                                   value="<?= htmlspecialchars($data_penulis['nama_penulis']) ?>" 
+                                   value="<?= htmlspecialchars($data_penulis['nama_penulis'] ?? '') ?>" 
                                    maxlength="100" required>
                         </div>
                         <div class="d-flex gap-2">

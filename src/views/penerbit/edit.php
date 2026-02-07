@@ -21,18 +21,18 @@ include(ROOT_PATH . 'src/views/layouts/header.php');
                         <div class="mb-3">
                             <label for="id_penerbit" class="form-label">ID Penerbit</label>
                             <input type="text" class="form-control" id="id_penerbit" name="id_penerbit" 
-                                   value="<?= htmlspecialchars($data_penerbit['id_penerbit']) ?>" readonly>
+                                   value="<?= htmlspecialchars($data_penerbit['id_penerbit'] ?? '') ?>" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="nama_penerbit" class="form-label">Nama Penerbit <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit" 
-                                   value="<?= htmlspecialchars($data_penerbit['nama_penerbit']) ?>" 
+                                   value="<?= htmlspecialchars($data_penerbit['nama_penerbit'] ?? '') ?>" 
                                    maxlength="50" required>
                         </div>
                         <div class="mb-3">
                             <label for="kota" class="form-label">Kota <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="kota" name="kota" 
-                                   value="<?= htmlspecialchars($data_penerbit['kota']) ?>" 
+                                   value="<?= htmlspecialchars($data_penerbit['kota'] ?? '') ?>" 
                                    maxlength="30" required>
                         </div>
                         <div class="d-flex gap-2">

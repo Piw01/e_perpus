@@ -69,16 +69,18 @@ class PenulisController {
         $this->checkAccess(); // Pengecekan Akses
         
         $id_penulis = $_GET['id'] ?? null;
-        $penulis = $this->penulisModel->readById($id_penulis);
+        // UBAH: dari $penulis menjadi $data_penulis
+        $data_penulis = $this->penulisModel->readById($id_penulis);
 
-        if (!$penulis) {
+        if (!$data_penulis) {
             $_SESSION['error_message'] = "Penulis tidak ditemukan!";
             header("Location: index.php?page=penulis/index");
             exit();
         }
+        
+        // Sekarang file edit.php akan mengenali variabel $data_penulis
         require_once ROOT_PATH . 'src/views/penulis/edit.php';
     }
-
     public function update() {
         $this->checkAccess(); // Pengecekan Akses
         

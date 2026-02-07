@@ -73,16 +73,18 @@ class PenerbitController {
         $this->checkAccess(); // Pengecekan Akses
         
         $id_penerbit = $_GET['id'] ?? null;
-        $penerbit = $this->penerbitModel->readById($id_penerbit);
+        
+        // UBAH: variabel disesuaikan agar dibaca oleh View
+        $data_penerbit = $this->penerbitModel->readById($id_penerbit);
 
-        if (!$penerbit) {
+        if (!$data_penerbit) {
             $_SESSION['error_message'] = "Penerbit tidak ditemukan!";
             header("Location: index.php?page=penerbit/index");
             exit();
         }
+        
         require_once ROOT_PATH . 'src/views/penerbit/edit.php';
     }
-
     public function update() {
         $this->checkAccess(); // Pengecekan Akses
         
