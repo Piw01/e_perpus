@@ -18,6 +18,20 @@ class ReservasiModel {
         return $stmt;
     }
 
+    // ✅ METHOD BARU: Mengambil detail reservasi by ID
+    public function readById($id_reservasi) {
+        $query = "SELECT r.*, a.nama_lengkap, a.no_hp, a.no_anggota, b.judul, b.isbn
+                  FROM {$this->table} r
+                  JOIN anggota a ON r.id_anggota = a.id_anggota
+                  JOIN buku b ON r.id_buku = b.id_buku
+                  WHERE r.id_reservasi = :id
+                  LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id_reservasi);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function readByAnggota($id_anggota) {
         $query = "SELECT r.*, b.judul, b.isbn 
                   FROM {$this->table} r
