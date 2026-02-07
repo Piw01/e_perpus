@@ -87,9 +87,9 @@
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
             <?php foreach ($data_buku as $buku): ?>
                 <div class="col">
-                    <div class="card h-100 shadow-sm">
+                    <div class="card h-100 shadow">
                         <img src="assets/img/sampul_buku/<?= htmlspecialchars($buku['foto_sampul']) ?>" 
-                             class="card-img-top" alt="Sampul" style="height: 250px; object-fit: cover;">
+                             class="card-img-top" alt="Sampul" style="height: 460px; object-fit: cover;">
                         <div class="card-body">
                             <h6 class="card-title"><?= htmlspecialchars($buku['judul']) ?></h6>
                             <p class="card-text text-muted small mb-1">
