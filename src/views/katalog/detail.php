@@ -68,7 +68,7 @@
                     <td><strong>Ketersediaan</strong></td>
                     <td>: 
                         <?php if ($buku['jumlah_tersedia'] > 0): ?>
-                            <span class="badge bg-success">Tersedia (<?= $buku['jumlah_tersedia'] ?> eksemplar)</span>
+                            <span class="badge bg-success">Tersedia <?= $buku['jumlah_tersedia'] ?> </span>
                         <?php else: ?>
                             <span class="badge bg-danger">Tidak Tersedia</span>
                         <?php endif; ?>
